@@ -10,6 +10,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 	</head>
 	<body>
+		<div class="logo lazy-load"><img src="assets/images/logo.svg"></div>
 		<div id="scene" class="scene desert lazy-load">
 			<div id="scene_grid" class="grid iso"></div>
 			<div id="ground_grid" class="grid iso"></div>
@@ -18,10 +19,13 @@
 			<h2></h2>
 			<h4></h4>
 		</div>
-		<div class="coin-counter lazy-load" id="coin_count"></div>
+		<div class="bottom-left">
+			<div class="coin-counter lazy-load" id="coin_count"></div>
+			<div class="self-reward lazy-load link" id="self_reward" onclick="showCoinModal(1)">I deserve a coin</div>
+		</div>
 		<div class="coin-modal" id="coin_modal">
 			<div class="coin">1</div>
-			<h3>A new day begins.</h3>
+			<h3>A coin to build your Rome</h3>
 			<p>You've earned a coin. Go build something.</p>
 			<div class="button">I earned it</div>
 			<div class="link">I didn't earned it</div>

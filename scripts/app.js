@@ -144,7 +144,7 @@ var updateCoins = function(amt) {
 var showCoinModal = function(amt) {
   $coinModal.classList.add("coin-modal-show");
   $coinModal.querySelector('.coin').innerHTML = amt;
-  $coinModal.querySelector('p').innerHTML = amt > 1 ? `You've earned ${amt} coins. Go build something.` : `You've earned a coin. Go build something.`;
+  $coinModal.querySelector('p').innerHTML = amt > 1 ? `Here's ${amt} coins. Did you earn it?.` : `Here's a coin. Did you earn it?.`;
   $coinModal.querySelector('.button').onclick = function() {
     updateCoins(amt);
     enableTippets();
@@ -196,7 +196,7 @@ var populateParticles = function(amt, container) {
 
 var renderDaysSince = function(elapsed){
   $counter.querySelector('h2').innerHTML = elapsed.days + ' days';
-  $counter.querySelector('h4').innerHTML = `${elapsed.hours - elapsed.days*24} hours, ${elapsed.minutes} minutes`;
+  $counter.querySelector('h4').innerHTML = `${elapsed.hours} hours, ${elapsed.minutes} minutes`;
 };
 
 function days_between(date1, date2) {
@@ -204,10 +204,14 @@ function days_between(date1, date2) {
     var date1_ms = date1.getTime();
     var date2_ms = date2.getTime();
     var difference_ms = Math.abs(date1_ms - date2_ms);
+    var absHoursDifference = Math.abs(date2.getHours() - date1.getHours());
+    var absMinutesDifference = Math.abs(date2.getMinutes() - date1.getMinutes());
+    var minutes = 60 + date2.getMinutes() - date1.getMinutes() <= 30 ? absMinutesDifference : 60 + date2.getMinutes() - date1.getMinutes();
+    var hours = minutes <= 30 ? 24 - absHoursDifference : 24 - absHoursDifference - 1;
     return {
       days: Math.floor(difference_ms/ONE_DAY),
-      hours: Math.floor((difference_ms/ONE_DAY).toFixed(2)*24),
-      minutes: Math.floor(((difference_ms/ONE_DAY).toFixed(4)*24) % 1 * 60)
+      hours: hours,
+      minutes: minutes
     };
 }
 
@@ -222,7 +226,7 @@ var initScene = function() {
     else {
       firstLogin = new Date();
       localforage.setItem('first_login', firstLogin);
-      localforage.setItem('coins', 2);
+      showCoinModal(2);
       coins = 2;
     }
     localforage.getItem('last_login').then(function(ll) {
@@ -235,6 +239,9 @@ var initScene = function() {
         else {
           updateCoins();
         }
+      }
+      else {
+        lastLogin = now;
       }
       localforage.setItem('last_login', now);
       localforage.getItem('scene').then(function(scn) {
@@ -262,7 +269,6 @@ var initScene = function() {
   });
 };
 
-
 var tick = function() {
   var now = new Date();
   var elapsed = days_between(lastLogin, now);
@@ -270,16 +276,8 @@ var tick = function() {
     renderDaysSince(days_between(firstLogin, now));
   }
   if(elapsed.days > 0) {
-    showCoinModal(daysSinceLastLogin*2);
+    showCoinModal(elapsed.days*2);
   }
 };
-
-
-// var requestTick = function() {
-//   if(!ticking) {
-//     requestAnimationFrame(tick);
-//     ticking = true;
-//   }
-// };
 
 initScene();
