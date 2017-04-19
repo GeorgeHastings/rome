@@ -206,7 +206,7 @@ function days_between(date1, date2) {
     var difference_ms = Math.abs(date1_ms - date2_ms);
     var absHoursDifference = Math.abs(date2.getHours() - date1.getHours());
     var absMinutesDifference = Math.abs(date2.getMinutes() - date1.getMinutes());
-    var minutes = 60 + date2.getMinutes() - date1.getMinutes() <= 30 ? absMinutesDifference : 60 + date2.getMinutes() - date1.getMinutes();
+    var minutes = 60 + date2.getMinutes() - date1.getMinutes() <= 30 ||  60 + date2.getMinutes() - date1.getMinutes() >= 60 ? absMinutesDifference : 60 + date2.getMinutes() - date1.getMinutes();
     var hours = minutes <= 30 ? 24 - absHoursDifference : 24 - absHoursDifference - 1;
     return {
       days: Math.floor(difference_ms/ONE_DAY),
