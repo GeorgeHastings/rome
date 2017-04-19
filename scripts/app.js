@@ -141,11 +141,18 @@ var updateCoins = function(amt) {
   });
 };
 
-var showCoinModal = function(amt, title) {
+var showCoinModal = function(amt, content) {
   $coinModal.classList.add("coin-modal-show");
-  $coinModal.querySelector('h3').innerHTML = title ? title : 'Build your Rome';
+  $coinModal.querySelector('h3').innerHTML = content && content.title ? content.title : 'Build your Rome';
   $coinModal.querySelector('.coin').innerHTML = amt;
-  $coinModal.querySelector('p').innerHTML = amt > 1 ? `Here's ${amt} coins. Did you earn it?.` : `Here's a coin. Did you earn it?.`;
+  if(content && content.message) {
+    $coinModal.querySelector('p').innerHTML = content.message;
+  }
+  else {
+    $coinModal.querySelector('p').innerHTML = amt > 1 ? `Here's ${amt} coins. Did you earn it?.` : `Here's a coin. Did you earn it?.`;
+  }
+  $coinModal.querySelector('.button').innerHTML = content && content.button ? content.button : 'I earned it';
+  $coinModal.querySelector('.link').innerHTML = content && content.link ? content.link : 'I didn\'t earn it';
   $coinModal.querySelector('.button').onclick = function() {
     updateCoins(amt);
     enableTippets();
@@ -208,7 +215,7 @@ function days_between(date1, date2) {
     var absHoursDifference = Math.abs(date2.getHours() - date1.getHours());
     var absMinutesDifference = Math.abs(date2.getMinutes() - date1.getMinutes());
     var minutes = 60 + date2.getMinutes() - date1.getMinutes() <= 30 ||  60 + date2.getMinutes() - date1.getMinutes() >= 60 ? absMinutesDifference : 60 + date2.getMinutes() - date1.getMinutes();
-    var hours = minutes <= 30 ? 24 - absHoursDifference : 24 - absHoursDifference - 1;
+    var hours = minutes <= 30  || 24 + date2.getHours() - date1.getHours() >= 24 ? absHoursDifference : 24 - absHoursDifference - 1;
     return {
       days: Math.floor(difference_ms/ONE_DAY),
       hours: hours,
@@ -227,7 +234,12 @@ var initScene = function() {
     else {
       firstLogin = new Date();
       localforage.setItem('first_login', firstLogin);
-      showCoinModal(2, 'Welcome');
+      showCoinModal(2, {
+        title: 'Welcome',
+        message: `You've begun! Here are two coins to start you off. Use them to build on the map. You'll earn more with each day you stick to it.`,
+        button: `Let's do this`,
+        link: ' ',
+      });
       coins = 2;
     }
     localforage.getItem('last_login').then(function(ll) {
@@ -235,7 +247,9 @@ var initScene = function() {
         var totalElapsed = days_between(ll, now);
         lastLogin = ll;
         if(totalElapsed.days > 0) {
-          showCoinModal(totalElapsed.days*2, 'A new day');
+          showCoinModal(totalElapsed.days*2, {
+            title: 'A new day beings'
+          });
         }
         else {
           updateCoins();
