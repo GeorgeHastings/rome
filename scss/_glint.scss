@@ -1,0 +1,77 @@
+.glint-container {
+  position: fixed;
+  right: 1em;
+  top: 1em;
+  z-index: 9999999;
+  max-width: 300px;
+}
+
+.glint-wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	z-index: 2;
+	max-width: 300px;
+  min-width: 300px;
+	padding: 1.5em;
+	color: map-get($grayscale, 1);
+  background-color: map-get($grayscale, 7);
+	font-size: 0.8em;
+	line-height: 1.5em;
+	border-radius: 3px;
+	transition: opacity .3s cubic-bezier(0,0,0,1);
+	animation: glintEnter 1s cubic-bezier(0,1,0,1);
+	backface-visibility: hidden;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+
+  & + .glint-wrap {
+    margin-top: 0.5em;
+  }
+
+  &.glint-error {
+    background-color: #ff563f;
+    color: #fff;
+  }
+
+	.glint-heading {
+		width: 100%;
+		font-size: 0.8em;
+		order: 1;
+    opacity: 0.6;
+		text-transform: uppercase;
+	}
+
+	.glint-body {
+		order: 2;
+		width: 100%;
+		margin-top: 1em;
+    opacity: 1;
+	}
+
+	.glint-button {
+		display: table;
+		order: 3;
+		padding: 5px 20px;
+		margin-top: 2em;
+    color: map-get($grayscale, 7);
+		background-color: #fff;
+		border-radius: 3px;
+		cursor: pointer;
+
+		&:hover {
+			font-weight: bold;
+		}
+	}
+
+	@keyframes glintEnter {
+		from {
+			opacity: 0;
+      transform: translate3d(50px, 0px, 0);
+		}
+		to {
+			opacity: 1;
+      transform: translate3d(0px, 0px, 0);
+		}
+	}
+}

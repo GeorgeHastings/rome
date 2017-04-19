@@ -1,116 +1,497 @@
-@import 'include-media';
-@import 'variables';
-@import 'utilities';
-@import 'layout';
-@import 'typography';
-@import 'colors';
-@import 'buttons';
-@import 'form';
-@import 'table';
-@import 'lists';
-@import 'navigation';
-@import 'modules';
-@import 'misc';
-@include font-face(GT-Walsheim-Pro-Light, fonts/GT-Walsheim-Pro-Light);
-@include font-face(GT-Walsheim-Pro-Medium, fonts/GT-Walsheim-Pro-Medium);
-@include font-face(GT-Walsheim-Pro-Bold, fonts/GT-Walsheim-Pro-Bold);
-@include font-face(Linearicons-free, fonts/Linearicons-free);
+$windergreen: #0047FF;
+$main-accent: $windergreen;
+$seafoam: #32cbb4;
+$lime: #1affa3;
+$burple: #7658FF;
+$limeblue: lighten(#85ECAB, 15%);
+
+$grayscale: (
+  1: #F3F4F7,
+  2: #CBD1DC,
+  3: #A3ADC2,
+  4: #7B8AA7,
+  5: #5A6987,
+  6: #3F4A5F,
+  7: #252B37
+);
+
+
+$greensky: linear-gradient(lighten($limeblue, 5%), darken($limeblue, 5%));
+$dusksky: linear-gradient(#574AB2, #F38673);
+$dusky: linear-gradient(to top, rgb(19, 83, 89), rgb(3, 215, 199));
+$forestsky: linear-gradient(90deg, darken(#78B194, 20%), #DDE0AB);
+$forestsky2: linear-gradient(to right, lighten(#3D7D82, 2%) 0%, #3D7D82 50%);
+$interior1: rgb(55, 49, 74);
+
+$sand: #EEE27E;
+$dirt: #B2AC7C;
+$wood: darken($dirt, 15%);
+$darkdirt: #655c4d;
+$marble: map-get($grayscale, 1);
+$gold: #FFD700;
+
+$ground-height: 5vh;
+$wall-height: 15vh;
+$tower-height: 25vh;
+$spire-height: 35vh;
+$monolith-height: 45vh;
+
+$heights: (
+  'door': 0vh,
+  'ground': 5vh,
+  'player': 5vh,
+  'wall': 10vh,
+  'tower': 20vh,
+  'spire': 30vh,
+  'monolith': 40vh,
+  'megalith': 50vh
+);
+
+$atmosdirections: (
+  'left': (translate3d(-100%,0,0), translate3d(100%,0,0)),
+  'right': (translate3d(100%,0,0), translate3d(-100%,0,0)),
+  'top': (translate3d(0,100%,0), translate3d(0,-100%,0)),
+  'bottom': (translate3d(0,-100%,0), translate3d(0,100%,0))
+);
+
+$empty: ('door', (transparent, ''), false);
+
+$ground-sand: ('ground', ($sand, 'sand'), false);
+$ground-dirt: ('ground', ($dirt, 'sand'), false);
+$ground-wood: ('ground', ($wood, 'wood_ver'), false);
+$ground-door-wood: ('door', ($wood, 'wood_hor'), ($wood, 'ornate'));
+$ground-door-sand: ('door', ($sand, 'sand'), ($sand, 'ornate'));
+$ground-door-grass: ('door', (#88DEBF, 'sand'), (#88DEBF, 'ornate'));
+$ground-grass: ('ground', (darken(#88DEBF, 10%), 'sand'), false);
+
+$wall-dirt: ('wall', ($darkdirt, 'sand'), false);
+$wall-sand: ('wall', ($dirt, 'sand'), false);
+$wall-grass: ('wall', (#67AC9A, 'ivy'), false);
+$wall-mudbrick: ('wall', ($dirt, 'brick'), false);
+$wall-wood: ('wall', ($dirt, 'wood_ver'), false);
+
+$tower-sand: ('tower', ($dirt, 'sand'), false);
+$tower-green: ('tower', (#95BEAD, 'wood_hor'), (#95BEAD, 'ornate'));
+$tower-wood: ('tower', ($wood, 'wood_door'), ($wood, 'roof'));
+
+$spire-sand: ('spire', ($dirt, 'brick'), ($dirt, 'ornate'));
+$spire-green: ('spire', (#7BA7A5, 'brick'), (#7BA7A5, 'squares_light'));
+$spire-stone: ('spire', (map-get($grayscale, 4), 'brick'), (map-get($grayscale, 4), 'ornate'));
+
+$monolith-marble: ('monolith', ($marble, 'column'), ($marble, 'ornate'));
+$monolith-green: ('monolith', (lighten(#7BA7A5, 23%), 'column'), (lighten(#7BA7A5, 23%), 'ornate'));
+
+$megalith-black: ('megalith', ($gold, 'ionic'), ($gold, 'spiral'));
+
+$player-forest: ('player', ($dirt, 'wood_ver'), ($dirt, 'circle'));
+$player-desert: ('player', (#95BEAD, 'wood_ver'), (#95BEAD, 'circle'));
+$goal: ('player', ($burple, 'sand'), false);
+
+$atmos-desert: ($dirt, 'left', 30);
+$atmos-forest: (#fff, 'top', 50);
+$atmos-interior: (rgba(255,255,255,.3), 'bottom', 70);
+
 
 * {box-sizing: border-box;}
 
-html,
-body {
-	height: 100%;
-	width: 100%;
+body,
+html{
+  font-family: 'Overpass Mono', monospace;
+  height: 100%;
   margin: 0;
+  font-size: 18px;
+  overflow: hidden;
+  background: $greensky;
 }
 
-body {
-	font-family: 'GT-Walsheim-Pro-Light';
-	font-size: 20px;
+.lazy-load {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition: all 1s cubic-bezier(0,1,0,1);
 
-	@include media("<desktop") {
-		font-size: 18px;
-	}
-	@include media("<tablet") {
-		font-size: 16px;
-	}
+  &.show {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+  }
 }
 
-.container {
+.scene {
   height: inherit;
-	padding: 50px;
-	margin-left: 240px;
-
-	@include media("<desktop") {
-		margin-left: 0px;
-    padding: 0;
-	}
+  width: inherit;
 }
 
-.side-bar {
-	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	width: 240px;
-	padding: 30px;
-	color: #585858;
-	font-size: 16px;
-	background-color: #000;
+.ui-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
 
-  .logo span {
-    color: #fff;
+#player_grid {
+  z-index: 2;
+}
+
+#scene_grid {
+  z-index: 1;
+
+  &.iso {
+    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0,0,-20vh);
+  }
+}
+
+#ground_grid {
+  z-index: 0;
+
+  &.iso {
+    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0,0,-25vh);
+  }
+}
+
+.grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 80vh;
+  height: 80vh;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: row;
+  flex-flow: wrap;
+  align-items: center;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: all 1s cubic-bezier(0,1,0,1);
+
+  div {
+    width: 8vh;
+    height: 8vh;
+    text-align: center;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+
+    &:hover {
+      outline: 2px solid white;
+    }
   }
 
-	.nav {
-		padding-left: 20px;
-	}
-
-	.nav a {
-		color: inherit;
-		line-height: 40px;
-		text-decoration: none;
-
-		&:target {
-			color: #fff;
-		}
-	}
-
-	@include media("<desktop") {
-		transform: translate3d(-240px, 0, 0);
-	}
+  &.sidescroller {
+    transform: rotateX(90deg) rotateZ(-90deg) translate3d(0,0,-35vh);
+  }
 }
 
-section {
-	padding: 50px 0;
+.player img {
+  position: absolute;
+  width: 60%;
+  height: 300%;
+  z-index: 4;
+  transform:  translate3d(6vh,-1vh,1vh) rotateZ(135deg) ;
 }
 
-.border-wrap {
-	position: relative;
-	padding: 50px 30px 30px 30px;
-	margin-top: 50px;
-	border: 1px solid #eee;
-	// background-color: #fff;
+@mixin threedee-box($type, $main-skin, $roof-skin) {
+  $height: map-get($heights, $type);
 
-	&:before {
-		position: absolute;
-		content: attr(data-type);
-		top: -20px;
-		padding: 5px 10px;
-		font-size: 14px;
-		background-color: #fff;
-		border: 1px solid #eee;
-	}
+  background-color: nth($main-skin, 1);
+  transform: translate3d(0,0,$height);
+  transform-style: preserve-3d;
+  animation-fill-mode: forwards;
+  transition: height 0.5s cubic-bezier(0,0,0,1), transform 0.5s cubic-bezier(0,0,0,1);
+  background-blend-mode: soft-light;
+  background-size: 100%;
 
-  &--dark {
-    background-color: map-get($grayscale, 5);
-    border: none;
+  @if($roof-skin) {
+    background-color: nth($roof-skin, 1);
+    background-image: url('../assets/images/textures/#{nth($roof-skin, 2)}.png');
+  }
+  @else {
+    background-color: nth($main-skin, 1);
+    background-image: url('../assets/images/textures/#{nth($main-skin, 2)}.png');
+  }
 
-		&:before {
-			color: #fff;
-			border: none;
-			background-color: map-get($grayscale, 5);
-		}
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: $height;
+    background-image: url('../assets/images/textures/#{nth($main-skin, 2)}.png');
+    background-blend-mode: soft-light;
+    background-size: 100%;
+    background-position: 50% 0%;
+    transition: all 0.5s cubic-bezier(0,0,0,1);
+  }
+
+  &:before {
+    background-color: lighten(nth($main-skin, 1), 10%);
+    transform: rotateX(-90deg) rotateY(0deg) translate3d(-50%, 0, 0);
+    transform-origin: 50% 0%;
+  }
+  &:after {
+    background-color: darken(nth($main-skin, 1), 10%);
+    transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
+    transform-origin: -50% 0%;
+  }
+}
+
+@mixin atmosphere($color, $direction, $speed) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  animation: #{$direction} #{$speed}s linear infinite;
+  transform-origin: 50% 50%;
+  opacity: 0.7;
+  pointer-events: none;
+
+  @for $i from 1 through 11 {
+    &:nth-child(#{$i}) {
+      animation-delay: -#{$i*$speed/2}s;
+    }
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: $color;
+  }
+
+  @keyframes #{$direction} {
+    0% {
+      transform: perspective(500px) nth(map-get($atmosdirections, $direction), 1);
+    }
+    100% {
+      transform: perspective(500px) nth(map-get($atmosdirections, $direction), 2);
+    }
+  }
+}
+
+.empty {
+  @include threedee-box($empty...);
+}
+
+.desert {
+  background: $greensky;
+
+  .ground {
+    @include threedee-box($ground-sand...);
+  }
+
+  .doorway {
+    @include threedee-box($ground-door-sand...);
+  }
+
+  .wall {
+    @include threedee-box($wall-sand...);
+  }
+
+  .tower {
+    @include threedee-box($tower-wood...);
+  }
+
+  .spire {
+    @include threedee-box($spire-sand...);
+  }
+
+  .monolith {
+    @include threedee-box($monolith-marble...);
+  }
+
+  .megalith {
+    @include threedee-box($megalith-black...);
+  }
+  .player {
+    @include threedee-box($player-desert...);
+  }
+
+  .layer {
+    @include atmosphere($atmos-desert...);
+  }
+
+  & + .day-counter,
+  & ~ .coin-counter{
+    color: $darkdirt;
+  }
+}
+
+.forest {
+  background: $dusky;
+
+  .ground {
+    @include threedee-box($ground-grass...);
+  }
+
+  .doorway {
+    @include threedee-box($ground-door-grass...);
+  }
+
+  .wall {
+    @include threedee-box($wall-grass...);
+  }
+
+  .tower {
+    @include threedee-box($tower-green...);
+  }
+
+  .spire {
+    @include threedee-box($spire-green...);
+  }
+
+  .monolith {
+    @include threedee-box($monolith-green...);
+  }
+  .megalith {
+    @include threedee-box($megalith-black...);
+  }
+  .player {
+    @include threedee-box($player-forest...);
+  }
+
+  .layer {
+    @include atmosphere($atmos-forest...);
+  }
+
+  & + .day-counter,
+  & ~ .coin-counter, {
+    color: #fff;
+  }
+}
+
+.interior {
+  background: $interior1;
+
+  .ground {
+    @include threedee-box($ground-wood...);
+  }
+
+  .doorway {
+    @include threedee-box($ground-door-wood...);
+  }
+
+  .wall {
+    @include threedee-box($wall-dirt...);
+  }
+
+  .tower {
+    @include threedee-box($tower-wood...);
+  }
+
+  .spire {
+    @include threedee-box($spire-stone...);
+  }
+
+  .monolith {
+    @include threedee-box($monolith-marble...);
+  }
+  .player {
+    @include threedee-box($player-desert...);
+  }
+
+  .layer {
+    @include atmosphere($atmos-interior...);
+  }
+}
+
+.goal {
+  @include threedee-box($goal...);
+}
+
+.day-counter {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+  z-index: 9999;
+}
+
+.coin-counter {
+  position: absolute;
+  bottom: 50px;
+  left: 75px;
+  font-size: 1rem;
+  z-index: 9999;
+
+  &:before {
+    position: absolute;
+    left: -25px;
+    top: 6px;
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: linear-gradient(lighten($gold, 5%), darken($gold, 5%));
+  }
+}
+
+.coin-modal {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  padding: 2em;
+  z-index: 9999;
+  background-color: #fff;
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition: all 1s cubic-bezier(0,1,0,1);
+  pointer-events: none;
+
+  h3 {
+    font-family: 'Arial';
+  }
+
+  p {
+    font-size: 0.8em;
+    margin-bottom: 2em;
+  }
+
+  &.coin-modal-show {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+    pointer-events: auto;
+  }
+
+  .coin {
+    position: relative;
+    margin-left: 25px;
+
+    &:before {
+      position: absolute;
+      left: -25px;
+      top: 6px;
+      content: "";
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: linear-gradient(lighten($gold, 5%), darken($gold, 5%));
+    }
+  }
+}
+
+.button {
+  display: inline-block;
+  font-size: 0.8em;
+  font-family: 'Arial';
+  padding: 20px 30px;
+  background-color: $gold;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.link {
+  display: inline-block;
+  font-size: 0.8em;
+  font-family: 'Arial';
+  padding: 10px 30px;
+  color: map-get($grayscale, 3);
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
   }
 }

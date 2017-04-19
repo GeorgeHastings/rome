@@ -1,91 +1,284 @@
 'use strict';
 
-var UI = {
-  scrolling: false,
-  currentTop: 0,
-  resourcesOpen: false,
-  questionFlow: {
-    signposts: document.querySelectorAll('.signpost li'),
-    questions: document.querySelectorAll('.question'),
-    index: 0,
-    enableButton: function() {
-      document.getElementById('nextQuestion').removeAttribute('disabled');
-    },
-    nextQuestion: function() {
-      UI.questionFlow.questions[UI.questionFlow.index].style.display = 'none';
-      UI.questionFlow.index++;
-      UI.questionFlow.questions[UI.questionFlow.index].style.display = 'block';
-      document.getElementById('nextQuestion').setAttribute('disabled', true);
-      UI.questionFlow.updateSignPost();
-      UI.repaint();
-    },
-    prevQuestion: function() {
-      UI.questionFlow.questions[UI.questionFlow.index].style.display = 'none';
-      UI.questionFlow.index--;
-      UI.questionFlow.questions[UI.questionFlow.index].style.display = 'block';
-      document.getElementById('nextQuestion').removeAttribute('disabled');
-      UI.questionFlow.updateSignPost();
-      UI.repaint();
-    },
-    updateSignPost: function() {
-      for (var i = 0; i < UI.questionFlow.signposts.length; i++) {
-        UI.questionFlow.signposts[i].classList.remove('active');
-      }
-      UI.questionFlow.signposts[UI.questionFlow.index].classList.add('active');
+var sceneUnits = {
+  0: '',
+  1: 'doorway',
+  2: 'wall',
+  3: 'tower',
+  4: 'spire',
+  5: 'monolith',
+  6: 'megalith',
+  'p': 'player'
+};
+
+var tippets = {
+  0: 'Place a foundation',
+  1: 'Build a hut',
+  2: 'Build a hall',
+  3: 'Build a tower',
+  4: 'Build a monolith',
+  5: 'Build a megalith',
+  6: 'This structure is complete'
+};
+
+var groundUnits = {
+  0: 'ground',
+};
+
+var upgrade = new Pizazz({
+  size: 30,
+  buffer: 20,
+  spacing: 15,
+  speed: 1,
+  stroke: 'white',
+  strokeWidth: 2
+});
+
+var warning = new Pizazz({
+  size: 20,
+  buffer: 10,
+  spacing: 10,
+  speed: 1,
+  stroke: '#fff',
+  strokeWidth: 1
+});
+
+var sceneRotation = -135;
+var sceneGrid;
+var coins;
+var firstLogin;
+var lastLogin;
+
+var getRandomVal = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+var genBlankGrid = function() {
+  return _.fill(Array(100), 0);
+};
+
+var $ground = document.getElementById('ground_grid');
+var $scene = document.getElementById('scene_grid');
+var $counter = document.getElementById('days_since');
+var $coins = document.getElementById('coin_count');
+var $coinModal = document.getElementById('coin_modal');
+
+var renderGrid = function(grid, id) {
+  document.getElementById(id).innerHTML = '';
+  var texture;
+  if(id === 'scene_grid') {
+    texture = sceneUnits;
+  }
+  else {
+    texture = groundUnits;
+  }
+  for (var i = 0; i < grid.length; i++) {
+    var el = document.createElement('div');
+    el.setAttribute('data-index', i);
+    el.classList = texture[grid[i]];
+    el.onclick = upgradeSquare;
+    if(coins > 0) {
+      el.setAttribute('data-tippet', tippets[grid[i]]);
     }
-  },
-  toggleResources: function() {
-    if(UI.resourcesOpen) {
-      document.getElementById('dropdownResources').classList.remove('open');
-      UI.resourcesOpen = false;
+    document.getElementById(id).appendChild(el);
+  }
+  tippet.update();
+};
+
+var enableTippets = function() {
+  var squares = [...$scene.querySelectorAll('div')];
+  for(var i = 0; i < sceneGrid.length; i++) {
+    squares[i].setAttribute('data-tippet', tippets[sceneGrid[i]]);
+  }
+  tippet.update();
+};
+
+var upgradeSquare = function(e){
+  var el = e.target;
+  if(coins > 0) {
+    var states = ['', 'doorway', 'wall', 'tower', 'spire', 'monolith', 'megalith'];
+    var currentState = states.indexOf(el.classList.value);
+    var index = [].indexOf.call($scene.childNodes, el);
+    if(currentState < states.length - 1) {
+      el.classList = states[currentState+1];
+      sceneGrid[index] = currentState+1;
+      upgrade.play(el);
+      el.setAttribute('data-tippet', tippets[currentState+1]);
+      tippet.inject(tippets[currentState+1]);
+      updateCoins(-1);
+      localforage.setItem('scene', sceneGrid);
     }
-    else {
-      document.getElementById('dropdownResources').classList.add('open');
-      UI.resourcesOpen = true;
-    }
-  },
-  autoHideHeader: function() {
-    var currentTop = document.body.scrollTop;
-    var scrollingDown = currentTop > UI.previousTop;
-    if(scrollingDown) {
-      document.getElementById('header').classList.add('hidden');
-    }
-    else {
-      document.getElementById('header').classList.remove('hidden');
-    }
-    UI.previousTop = currentTop;
-    UI.scrolling = false;
-  },
-  showHideHeader: function() {
-    if(!UI.scrolling) {
-      UI.scrolling = true;
-      (!window.requestAnimationFrame) ? setTimeout(UI.autoHideHeader, 250) : requestAnimationFrame(UI.autoHideHeader);
-    }
-  },
-  repaint: function() {
-    var classname = '_loadin';
-    var elements = document.querySelectorAll('.'+classname);
-    for(var i = 0; i < elements.length; i++) {
-      elements[i].classList.remove(classname);
-      console.log(elements[i].offsetWidth);
-      elements[i].classList.add(classname);
-    }
-  },
-  bindToMany: function(elements, eventType, fn) {
-    var els = document.querySelectorAll(elements);
-    for(var i = 0; i < els.length; i++) {
-      els[i][eventType] = fn;
-    }
-  },
-  bindEvents: function() {
-    document.getElementById('resourcesLink').onclick = UI.toggleResources;
-    window.onscroll = UI.showHideHeader;
-    if (document.getElementById('nextQuestion'), document.getElementById('prevQuestion')) {
-      document.getElementById('nextQuestion').onclick = UI.questionFlow.nextQuestion;
-      document.getElementById('prevQuestion').onclick = UI.questionFlow.prevQuestion;
-      UI.bindToMany('input[type="radio"]', 'onchange', UI.questionFlow.enableButton);
-    }
+  }
+  else {
+    tippet.inject('No coins', {
+      'background-color': '#A3ADC2',
+      'color': '#fff'
+    });
+    warning.play(document.getElementById('Tippet'));
   }
 };
 
-UI.bindEvents();
+var getRandomVal = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+var rotateScene = function(direction) {
+  var delta = direction === 'left' ? -90 : 90;
+  sceneRotation += delta;
+  $scene.setAttribute('style',`transform: rotateX(55deg) rotateZ(${sceneRotation}deg) translate3d(0,0,-25vh)`);
+  // var elements = [...$scene.querySelectorAll('div')];
+  // for(var element of elements) {
+  //   element.setAttribute('style',`transform: rotateZ(${sceneRotation + (sceneRotation/45)*-45}deg)`);
+  // }
+};
+
+var updateCoins = function(amt) {
+  var amount = amt ? amt : 0;
+  localforage.getItem('coins').then(function(s) {
+    coins = s + amount;
+    $coins.innerHTML = coins;
+    localforage.setItem('coins', coins);
+  });
+};
+
+var showCoinModal = function(amt) {
+  $coinModal.classList.add("coin-modal-show");
+  $coinModal.querySelector('.coin').innerHTML = amt;
+  $coinModal.querySelector('p').innerHTML = amt > 1 ? `You've earned ${amt} coins. Go build something.` : `You've earned a coin. Go build something.`;
+  $coinModal.querySelector('.button').onclick = function() {
+    updateCoins(amt);
+    enableTippets();
+    closeCoinModal();
+  };
+  $coinModal.querySelector('.link').onclick = closeCoinModal;
+};
+
+var closeCoinModal = function() {
+  $coinModal.classList.remove("coin-modal-show");
+};
+
+//KEY EVENTS
+
+document.body.onkeydown = function(e) {
+  if(e.keyCode === 37) {
+    rotateScene('left');
+  }
+  else if(e.keyCode === 39){
+    rotateScene('right');
+  }
+};
+
+//INIT DUST
+
+var layers = 2;
+var starsPerLayer = 80;
+
+var renderLayers = function() {
+  for(var i = 0; i < layers; i++) {
+    var newLayer = document.createElement('div');
+    newLayer.classList.add('layer');
+    populateParticles(starsPerLayer, newLayer);
+    document.getElementById('scene').appendChild(newLayer);
+  }
+};
+
+var populateParticles = function(amt, container) {
+  for(var i = 0; i < amt; i++) {
+    var el = document.createElement('div');
+    el.classList.add('star');
+    var top = Math.floor(Math.random() * window.innerHeight);
+    var left = Math.floor(Math.random() * window.innerWidth);
+    el.style.top = top+'px';
+    el.style.left = left+'px';
+    container.appendChild(el);
+  }
+};
+
+var renderDaysSince = function(elapsed){
+  $counter.querySelector('h2').innerHTML = elapsed.days + ' days';
+  $counter.querySelector('h4').innerHTML = `${elapsed.hours - elapsed.days*24} hours, ${elapsed.minutes} minutes`;
+};
+
+function days_between(date1, date2) {
+    var ONE_DAY = 1000 * 60 * 60 * 24;
+    var date1_ms = date1.getTime();
+    var date2_ms = date2.getTime();
+    var difference_ms = Math.abs(date1_ms - date2_ms);
+    return {
+      days: Math.floor(difference_ms/ONE_DAY),
+      hours: Math.floor((difference_ms/ONE_DAY).toFixed(2)*24),
+      minutes: Math.floor(((difference_ms/ONE_DAY).toFixed(4)*24) % 1 * 60)
+    };
+}
+
+var initScene = function() {
+  var now = new Date();
+  var sessionElapsed;
+  localforage.config();
+  localforage.getItem('first_login').then(function(fl) {
+    if(fl) {
+      firstLogin = fl;
+    }
+    else {
+      firstLogin = new Date();
+      localforage.setItem('first_login', firstLogin);
+      localforage.setItem('coins', 2);
+    }
+    localforage.getItem('last_login').then(function(ll) {
+      if(ll) {
+        var totalElapsed = days_between(ll, now);
+        lastLogin = ll;
+        if(totalElapsed.days > 0) {
+          showCoinModal(totalElapsed.days*2);
+        }
+        else {
+          updateCoins();
+        }
+      }
+      localforage.setItem('last_login', now);
+    });
+    sessionElapsed = days_between(firstLogin, now);
+    renderDaysSince(sessionElapsed);
+    renderLayers();
+    localforage.getItem('scene').then(function(scn) {
+      if(scn) {
+        sceneGrid = scn;
+        renderGrid(scn, 'scene_grid');
+      }
+      else {
+        sceneGrid = genBlankGrid();
+        renderGrid(sceneGrid, 'scene_grid');
+      }
+      renderGrid(genBlankGrid(), 'ground_grid');
+      setTimeout(function() {
+        var itemsToRender = [...document.querySelectorAll('.lazy-load')];
+        for(var item of itemsToRender) {
+          item.classList.add('show');
+        }
+        setInterval(tick, 1000);
+      }, 1000);
+    });
+  });
+};
+
+
+var tick = function() {
+  var now = new Date();
+  var elapsed = days_between(lastLogin, now);
+  if(elapsed.minutes > 0) {
+    renderDaysSince(days_between(firstLogin, now));
+  }
+  if(elapsed.days > 0) {
+    showCoinModal(daysSinceLastLogin*2);
+  }
+};
+
+
+// var requestTick = function() {
+//   if(!ticking) {
+//     requestAnimationFrame(tick);
+//     ticking = true;
+//   }
+// };
+
+initScene();
