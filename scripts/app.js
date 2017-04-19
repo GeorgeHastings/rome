@@ -141,8 +141,9 @@ var updateCoins = function(amt) {
   });
 };
 
-var showCoinModal = function(amt) {
+var showCoinModal = function(amt, title) {
   $coinModal.classList.add("coin-modal-show");
+  $coinModal.querySelector('h3').innerHTML = title ? title : 'Build your Rome';
   $coinModal.querySelector('.coin').innerHTML = amt;
   $coinModal.querySelector('p').innerHTML = amt > 1 ? `Here's ${amt} coins. Did you earn it?.` : `Here's a coin. Did you earn it?.`;
   $coinModal.querySelector('.button').onclick = function() {
@@ -226,7 +227,7 @@ var initScene = function() {
     else {
       firstLogin = new Date();
       localforage.setItem('first_login', firstLogin);
-      showCoinModal(2);
+      showCoinModal(2, 'Welcome');
       coins = 2;
     }
     localforage.getItem('last_login').then(function(ll) {
@@ -234,7 +235,7 @@ var initScene = function() {
         var totalElapsed = days_between(ll, now);
         lastLogin = ll;
         if(totalElapsed.days > 0) {
-          showCoinModal(totalElapsed.days*2);
+          showCoinModal(totalElapsed.days*2, 'A new day');
         }
         else {
           updateCoins();

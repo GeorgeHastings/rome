@@ -959,6 +959,8 @@ html {
     height: 15px;
     border-radius: 50%;
     background: linear-gradient(#ffdb1a, #e6c200); }
+  .coin-counter + .link {
+    margin-left: 30px; }
 
 .coin-modal {
   position: absolute;
@@ -996,7 +998,6 @@ html {
 .button {
   display: inline-block;
   font-size: 0.8em;
-  font-family: 'Arial';
   padding: 20px 30px;
   background-color: #FFD700;
   border-radius: 2px;
@@ -1005,8 +1006,7 @@ html {
 .link {
   display: inline-block;
   font-size: 0.8em;
-  font-family: 'Arial';
-  padding: 10px 30px;
+  padding: 10px 15px;
   color: #252B37;
   cursor: pointer; }
   .link:hover {

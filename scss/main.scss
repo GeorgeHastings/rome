@@ -438,6 +438,10 @@ html{
     border-radius: 50%;
     background: linear-gradient(lighten($gold, 5%), darken($gold, 5%));
   }
+
+  & + .link {
+    margin-left: 30px;
+  }
 }
 
 .coin-modal {
@@ -487,7 +491,6 @@ html{
 .button {
   display: inline-block;
   font-size: 0.8em;
-  font-family: 'Arial';
   padding: 20px 30px;
   background-color: $gold;
   border-radius: 2px;
@@ -497,8 +500,7 @@ html{
 .link {
   display: inline-block;
   font-size: 0.8em;
-  font-family: 'Arial';
-  padding: 10px 30px;
+  padding: 10px 15px;
   color: map-get($grayscale, 7);
   cursor: pointer;
 
