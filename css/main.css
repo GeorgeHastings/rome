@@ -982,6 +982,8 @@ html {
     opacity: 1;
     transform: translate3d(0, 0px, 0);
     pointer-events: auto; }
+  .coin-modal .link {
+    color: #7B8AA7; }
   .coin-modal .coin {
     position: relative;
     margin-left: 25px; }
