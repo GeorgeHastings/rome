@@ -223,6 +223,7 @@ var initScene = function() {
       firstLogin = new Date();
       localforage.setItem('first_login', firstLogin);
       localforage.setItem('coins', 2);
+      coins = 2;
     }
     localforage.getItem('last_login').then(function(ll) {
       if(ll) {
@@ -236,28 +237,28 @@ var initScene = function() {
         }
       }
       localforage.setItem('last_login', now);
+      localforage.getItem('scene').then(function(scn) {
+        if(scn) {
+          sceneGrid = scn;
+          renderGrid(scn, 'scene_grid');
+        }
+        else {
+          sceneGrid = genBlankGrid();
+          renderGrid(sceneGrid, 'scene_grid');
+        }
+        renderGrid(genBlankGrid(), 'ground_grid');
+        setTimeout(function() {
+          var itemsToRender = [...document.querySelectorAll('.lazy-load')];
+          for(var item of itemsToRender) {
+            item.classList.add('show');
+          }
+          setInterval(tick, 1000);
+        }, 1000);
+      });
     });
     sessionElapsed = days_between(firstLogin, now);
     renderDaysSince(sessionElapsed);
     renderLayers();
-    localforage.getItem('scene').then(function(scn) {
-      if(scn) {
-        sceneGrid = scn;
-        renderGrid(scn, 'scene_grid');
-      }
-      else {
-        sceneGrid = genBlankGrid();
-        renderGrid(sceneGrid, 'scene_grid');
-      }
-      renderGrid(genBlankGrid(), 'ground_grid');
-      setTimeout(function() {
-        var itemsToRender = [...document.querySelectorAll('.lazy-load')];
-        for(var item of itemsToRender) {
-          item.classList.add('show');
-        }
-        setInterval(tick, 1000);
-      }, 1000);
-    });
   });
 };
 
