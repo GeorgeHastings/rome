@@ -30,7 +30,7 @@ $darkdirt: #655c4d;
 $marble: map-get($grayscale, 1);
 $gold: #FFD700;
 
-$ground-height: 5vh;
+$ground-height: 4vh;
 $wall-height: 15vh;
 $tower-height: 25vh;
 $spire-height: 35vh;
@@ -38,13 +38,13 @@ $monolith-height: 45vh;
 
 $heights: (
   'door': 0vh,
-  'ground': 5vh,
-  'player': 5vh,
-  'wall': 10vh,
-  'tower': 20vh,
-  'spire': 30vh,
-  'monolith': 40vh,
-  'megalith': 50vh
+  'ground': 4vh,
+  'player': 4vh,
+  'wall': 8vh,
+  'tower': 16vh,
+  'spire': 24vh,
+  'monolith': 32vh,
+  'megalith': 40vh
 );
 
 $atmosdirections: (
@@ -155,7 +155,7 @@ html{
   z-index: 0;
 
   &.iso {
-    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0,0,-25vh);
+    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0,0,-24vh);
   }
 }
 
@@ -223,8 +223,9 @@ html{
     height: $height;
     background-image: url('../assets/images/textures/#{nth($main-skin, 2)}.png');
     background-blend-mode: soft-light;
-    background-size: 100%;
-    background-position: 50% 0%;
+    background-size: contain;
+    background-position: 0% 100%;
+    background-repeat: repeat;
     transition: all 0.5s cubic-bezier(0,0,0,1);
   }
 

@@ -48,7 +48,7 @@ html {
 #ground_grid {
   z-index: 0; }
   #ground_grid.iso {
-    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0, 0, -25vh); }
+    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0, 0, -24vh); }
 
 .grid {
   position: absolute;
@@ -95,8 +95,9 @@ html {
     height: 0vh;
     background-image: url("../assets/images/textures/.png");
     background-blend-mode: soft-light;
-    background-size: 100%;
-    background-position: 50% 0%;
+    background-size: contain;
+    background-position: 0% 100%;
+    background-repeat: repeat;
     transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
   .empty:before {
     background-color: rgba(26, 25, 25, 0);
@@ -111,7 +112,7 @@ html {
   background: linear-gradient(#ddfae8, #b1f3c9); }
   .desert .ground {
     background-color: #EEE27E;
-    transform: translate3d(0, 0, 5vh);
+    transform: translate3d(0, 0, 4vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -123,11 +124,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 5vh;
+      height: 4vh;
       background-image: url("../assets/images/textures/sand.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .desert .ground:before {
       background-color: #f4ecab;
@@ -154,8 +156,9 @@ html {
       height: 0vh;
       background-image: url("../assets/images/textures/sand.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .desert .doorway:before {
       background-color: #f4ecab;
@@ -167,7 +170,7 @@ html {
       transform-origin: -50% 0%; }
   .desert .wall {
     background-color: #B2AC7C;
-    transform: translate3d(0, 0, 10vh);
+    transform: translate3d(0, 0, 8vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -179,11 +182,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 10vh;
+      height: 8vh;
       background-image: url("../assets/images/textures/hut.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .desert .wall:before {
       background-color: #c5c09c;
@@ -195,7 +199,7 @@ html {
       transform-origin: -50% 0%; }
   .desert .tower {
     background-color: #8e8853;
-    transform: translate3d(0, 0, 20vh);
+    transform: translate3d(0, 0, 16vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -207,11 +211,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 20vh;
+      height: 16vh;
       background-image: url("../assets/images/textures/wood_door.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .desert .tower:before {
       background-color: #a9a26c;
@@ -223,7 +228,7 @@ html {
       transform-origin: -50% 0%; }
   .desert .spire {
     background-color: #B2AC7C;
-    transform: translate3d(0, 0, 30vh);
+    transform: translate3d(0, 0, 24vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -235,11 +240,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 30vh;
+      height: 24vh;
       background-image: url("../assets/images/textures/brick.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .desert .spire:before {
       background-color: #c5c09c;
@@ -251,7 +257,7 @@ html {
       transform-origin: -50% 0%; }
   .desert .monolith {
     background-color: #F3F4F7;
-    transform: translate3d(0, 0, 40vh);
+    transform: translate3d(0, 0, 32vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -263,11 +269,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 40vh;
+      height: 32vh;
       background-image: url("../assets/images/textures/column.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .desert .monolith:before {
       background-color: white;
@@ -279,7 +286,7 @@ html {
       transform-origin: -50% 0%; }
   .desert .megalith {
     background-color: #FFD700;
-    transform: translate3d(0, 0, 50vh);
+    transform: translate3d(0, 0, 40vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -291,11 +298,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 50vh;
+      height: 40vh;
       background-image: url("../assets/images/textures/ionic.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .desert .megalith:before {
       background-color: #ffdf33;
@@ -307,7 +315,7 @@ html {
       transform-origin: -50% 0%; }
   .desert .player {
     background-color: #95BEAD;
-    transform: translate3d(0, 0, 5vh);
+    transform: translate3d(0, 0, 4vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -319,11 +327,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 5vh;
+      height: 4vh;
       background-image: url("../assets/images/textures/wood_ver.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .desert .player:before {
       background-color: #b5d1c5;
@@ -398,7 +407,7 @@ html {
   background: linear-gradient(to top, #135359, #03d7c7); }
   .forest .ground {
     background-color: #60d3aa;
-    transform: translate3d(0, 0, 5vh);
+    transform: translate3d(0, 0, 4vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -410,11 +419,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 5vh;
+      height: 4vh;
       background-image: url("../assets/images/textures/sand.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .forest .ground:before {
       background-color: #88debf;
@@ -441,8 +451,9 @@ html {
       height: 0vh;
       background-image: url("../assets/images/textures/sand.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .forest .doorway:before {
       background-color: #b0e9d4;
@@ -454,7 +465,7 @@ html {
       transform-origin: -50% 0%; }
   .forest .wall {
     background-color: #67AC9A;
-    transform: translate3d(0, 0, 10vh);
+    transform: translate3d(0, 0, 8vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -466,11 +477,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 10vh;
+      height: 8vh;
       background-image: url("../assets/images/textures/ivy_hut.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .forest .wall:before {
       background-color: #88beb0;
@@ -482,7 +494,7 @@ html {
       transform-origin: -50% 0%; }
   .forest .tower {
     background-color: #95BEAD;
-    transform: translate3d(0, 0, 20vh);
+    transform: translate3d(0, 0, 16vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -494,11 +506,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 20vh;
+      height: 16vh;
       background-image: url("../assets/images/textures/wood_hor.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .forest .tower:before {
       background-color: #b5d1c5;
@@ -510,7 +523,7 @@ html {
       transform-origin: -50% 0%; }
   .forest .spire {
     background-color: #7BA7A5;
-    transform: translate3d(0, 0, 30vh);
+    transform: translate3d(0, 0, 24vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -522,11 +535,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 30vh;
+      height: 24vh;
       background-image: url("../assets/images/textures/brick.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .forest .spire:before {
       background-color: #9abbba;
@@ -538,7 +552,7 @@ html {
       transform-origin: -50% 0%; }
   .forest .monolith {
     background-color: #c1d6d5;
-    transform: translate3d(0, 0, 40vh);
+    transform: translate3d(0, 0, 32vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -550,11 +564,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 40vh;
+      height: 32vh;
       background-image: url("../assets/images/textures/column.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .forest .monolith:before {
       background-color: #e0eaea;
@@ -566,7 +581,7 @@ html {
       transform-origin: -50% 0%; }
   .forest .megalith {
     background-color: #FFD700;
-    transform: translate3d(0, 0, 50vh);
+    transform: translate3d(0, 0, 40vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -578,11 +593,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 50vh;
+      height: 40vh;
       background-image: url("../assets/images/textures/ionic.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .forest .megalith:before {
       background-color: #ffdf33;
@@ -594,7 +610,7 @@ html {
       transform-origin: -50% 0%; }
   .forest .player {
     background-color: #B2AC7C;
-    transform: translate3d(0, 0, 5vh);
+    transform: translate3d(0, 0, 4vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -606,11 +622,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 5vh;
+      height: 4vh;
       background-image: url("../assets/images/textures/wood_ver.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .forest .player:before {
       background-color: #c5c09c;
@@ -686,7 +703,7 @@ html {
   background: #37314a; }
   .interior .ground {
     background-color: #8e8853;
-    transform: translate3d(0, 0, 5vh);
+    transform: translate3d(0, 0, 4vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -698,11 +715,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 5vh;
+      height: 4vh;
       background-image: url("../assets/images/textures/wood_ver.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .interior .ground:before {
       background-color: #a9a26c;
@@ -729,8 +747,9 @@ html {
       height: 0vh;
       background-image: url("../assets/images/textures/wood_hor.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .interior .doorway:before {
       background-color: #a9a26c;
@@ -742,7 +761,7 @@ html {
       transform-origin: -50% 0%; }
   .interior .wall {
     background-color: #655c4d;
-    transform: translate3d(0, 0, 10vh);
+    transform: translate3d(0, 0, 8vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -754,11 +773,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 10vh;
+      height: 8vh;
       background-image: url("../assets/images/textures/sand.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .interior .wall:before {
       background-color: #827663;
@@ -770,7 +790,7 @@ html {
       transform-origin: -50% 0%; }
   .interior .tower {
     background-color: #8e8853;
-    transform: translate3d(0, 0, 20vh);
+    transform: translate3d(0, 0, 16vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -782,11 +802,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 20vh;
+      height: 16vh;
       background-image: url("../assets/images/textures/wood_door.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .interior .tower:before {
       background-color: #a9a26c;
@@ -798,7 +819,7 @@ html {
       transform-origin: -50% 0%; }
   .interior .spire {
     background-color: #7B8AA7;
-    transform: translate3d(0, 0, 30vh);
+    transform: translate3d(0, 0, 24vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -810,11 +831,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 30vh;
+      height: 24vh;
       background-image: url("../assets/images/textures/brick.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .interior .spire:before {
       background-color: #9aa5bb;
@@ -826,7 +848,7 @@ html {
       transform-origin: -50% 0%; }
   .interior .monolith {
     background-color: #F3F4F7;
-    transform: translate3d(0, 0, 40vh);
+    transform: translate3d(0, 0, 32vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -838,11 +860,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 40vh;
+      height: 32vh;
       background-image: url("../assets/images/textures/column.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .interior .monolith:before {
       background-color: white;
@@ -854,7 +877,7 @@ html {
       transform-origin: -50% 0%; }
   .interior .player {
     background-color: #95BEAD;
-    transform: translate3d(0, 0, 5vh);
+    transform: translate3d(0, 0, 4vh);
     transform-style: preserve-3d;
     animation-fill-mode: forwards;
     transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -866,11 +889,12 @@ html {
       content: "";
       position: absolute;
       width: inherit;
-      height: 5vh;
+      height: 4vh;
       background-image: url("../assets/images/textures/wood_ver.png");
       background-blend-mode: soft-light;
-      background-size: 100%;
-      background-position: 50% 0%;
+      background-size: contain;
+      background-position: 0% 100%;
+      background-repeat: repeat;
       transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
     .interior .player:before {
       background-color: #b5d1c5;
@@ -928,7 +952,7 @@ html {
 
 .goal {
   background-color: #7658FF;
-  transform: translate3d(0, 0, 5vh);
+  transform: translate3d(0, 0, 4vh);
   transform-style: preserve-3d;
   animation-fill-mode: forwards;
   transition: height 0.5s cubic-bezier(0, 0, 0, 1), transform 0.5s cubic-bezier(0, 0, 0, 1);
@@ -940,11 +964,12 @@ html {
     content: "";
     position: absolute;
     width: inherit;
-    height: 5vh;
+    height: 4vh;
     background-image: url("../assets/images/textures/sand.png");
     background-blend-mode: soft-light;
-    background-size: 100%;
-    background-position: 50% 0%;
+    background-size: contain;
+    background-position: 0% 100%;
+    background-repeat: repeat;
     transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
   .goal:before {
     background-color: #a08bff;
