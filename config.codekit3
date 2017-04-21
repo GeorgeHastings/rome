@@ -287,6 +287,18 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/assets\/sounds\/build.wav": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/assets\/sounds\/build.wav",
+		"oF": 0
+		},
+	"\/assets\/sounds\/chaching.mp3": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/assets\/sounds\/chaching.mp3",
+		"oF": 0
+		},
 	"\/css\/fonts\/GT-Walsheim-Pro-Bold-Oblique.eot": {
 		"ft": 8192,
 		"oA": 2,

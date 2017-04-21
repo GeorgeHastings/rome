@@ -35,7 +35,7 @@ html {
   left: 50px;
   z-index: 99; }
   .logo img {
-    width: 80px; }
+    width: 30px; }
 
 #player_grid {
   z-index: 2; }
@@ -73,6 +73,8 @@ html {
     transform-origin: 50% 50%; }
     .grid div:hover {
       outline: 2px solid white; }
+    .grid div:active {
+      outline: 2px solid rgba(255, 255, 255, 0.5); }
   .grid.sidescroller {
     transform: rotateX(90deg) rotateZ(-90deg) translate3d(0, 0, -35vh); }
 
@@ -377,7 +379,7 @@ html {
   100% {
     transform: perspective(500px) translate3d(100%, 0, 0); } }
   .desert + .day-counter,
-  .desert ~ .coin-counter {
+  .desert ~ .bottom-left {
     color: #655c4d; }
 
 .forest {
@@ -651,8 +653,9 @@ html {
     transform: perspective(500px) translate3d(0, 100%, 0); }
   100% {
     transform: perspective(500px) translate3d(0, -100%, 0); } }
-  .forest + .day-counter,
-  .forest ~ .coin-counter {
+  .forest ~ .bottom-left,
+  .forest ~ .bottom-left .link,
+  .forest ~ .day-counter {
     color: #fff; }
 
 .interior {
@@ -985,18 +988,30 @@ html {
     pointer-events: auto; }
   .coin-modal .link {
     color: #7B8AA7; }
-  .coin-modal .coin {
-    position: relative;
-    margin-left: 25px; }
-    .coin-modal .coin:before {
+
+.coin {
+  position: relative;
+  margin-left: 25px; }
+  .coin.small {
+    margin-left: 15px; }
+    .coin.small:before {
       position: absolute;
-      left: -25px;
-      top: 6px;
+      left: -15px;
+      top: 4px;
       content: "";
-      width: 15px;
-      height: 15px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: linear-gradient(#ffdb1a, #e6c200); }
+  .coin:before {
+    position: absolute;
+    left: -25px;
+    top: 6px;
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: linear-gradient(#ffdb1a, #e6c200); }
 
 .button {
   display: inline-block;
@@ -1014,3 +1029,7 @@ html {
   cursor: pointer; }
   .link:hover {
     text-decoration: underline; }
+
+.tippet {
+  display: flex;
+  flex-direction: row; }

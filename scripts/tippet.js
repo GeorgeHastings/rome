@@ -17,7 +17,7 @@ var genStyleSheet = function() {
       padding: 10px;
       max-width: 20em;
       border-radius: 3px;
-      font: inherit;
+      font-family: inherit;
       font-size: 0.75em;
       line-height: 1.5em;
       z-index: 9999;

@@ -135,7 +135,7 @@ html{
   z-index: 99;
 
   img {
-    width: 80px;
+    width: 30px;
   }
 }
 
@@ -184,7 +184,10 @@ html{
 
     &:hover {
       outline: 2px solid white;
-      // box-shadow: 4vh 0 0 0vh rgba(255,255,255,.5);
+    }
+
+    &:active {
+      outline: 2px solid rgba(255,255,255,0.5);
     }
   }
 
@@ -316,7 +319,7 @@ html{
   }
 
   & + .day-counter,
-  & ~ .coin-counter{
+  & ~ .bottom-left{
     color: $darkdirt;
   }
 }
@@ -358,8 +361,9 @@ html{
     @include atmosphere($atmos-forest...);
   }
 
-  & + .day-counter,
-  & ~ .coin-counter, {
+  & ~ .bottom-left,
+  & ~ .bottom-left .link,
+  & ~ .day-counter {
     color: #fff;
   }
 }
@@ -475,21 +479,35 @@ html{
   .link {
     color: #7B8AA7;
   }
+}
 
-  .coin {
-    position: relative;
-    margin-left: 25px;
+.coin {
+  position: relative;
+  margin-left: 25px;
 
+  &.small {
+    margin-left: 15px;
     &:before {
       position: absolute;
-      left: -25px;
-      top: 6px;
+      left: -15px;
+      top: 4px;
       content: "";
-      width: 15px;
-      height: 15px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: linear-gradient(lighten($gold, 5%), darken($gold, 5%));
     }
+  }
+
+  &:before {
+    position: absolute;
+    left: -25px;
+    top: 6px;
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: linear-gradient(lighten($gold, 5%), darken($gold, 5%));
   }
 }
 
@@ -512,4 +530,9 @@ html{
   &:hover {
     text-decoration: underline;
   }
+}
+
+.tippet {
+  display: flex;
+  flex-direction: row;
 }

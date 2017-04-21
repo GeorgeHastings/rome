@@ -12,12 +12,12 @@ var sceneUnits = {
 };
 
 var tippets = {
-  0: 'Place a foundation',
-  1: 'Build a hut',
-  2: 'Build a hall',
-  3: 'Build a tower',
-  4: 'Build a monolith',
-  5: 'Build a megalith',
+  0: '<div class="coin small">1: Place a foundation</div>',
+  1: '<div class="coin small">1: Build a hut</div>',
+  2: '<div class="coin small">2: Build a hall</div>',
+  3: '<div class="coin small">3: Build a tower</div>',
+  4: '<div class="coin small">4: Build a monolith</div>',
+  5: '<div class="coin small">5: Build a megalith</div>',
   6: 'This structure is complete'
 };
 
@@ -95,9 +95,10 @@ var enableTippets = function() {
 
 var upgradeSquare = function(e){
   var el = e.target;
-  if(coins > 0) {
-    var states = ['', 'doorway', 'wall', 'tower', 'spire', 'monolith', 'megalith'];
-    var currentState = states.indexOf(el.classList.value);
+  var states = ['', 'doorway', 'wall', 'tower', 'spire', 'monolith', 'megalith'];
+  var currentState = states.indexOf(el.classList.value);
+  var cost = currentState <= 1 ? 1 : currentState;
+  if(coins >= cost) {
     var index = [].indexOf.call($scene.childNodes, el);
     if(currentState < states.length - 1) {
       el.classList = states[currentState+1];
@@ -105,21 +106,33 @@ var upgradeSquare = function(e){
       upgrade.play(el);
       el.setAttribute('data-tippet', tippets[currentState+1]);
       tippet.inject(tippets[currentState+1]);
-      updateCoins(-1);
+      playSound('build.wav');
+      updateCoins(-cost);
       localforage.setItem('scene', sceneGrid);
     }
   }
   else {
-    tippet.inject('No coins', {
-      'background-color': '#A3ADC2',
-      'color': '#fff'
+    var knock = new Pizazz({
+      size: 20,
+      buffer: 10,
+      spacing: 15,
+      speed: 1,
+      stroke: '#B2AC7C',
+      strokeWidth: 2
     });
-    warning.play(document.getElementById('Tippet'));
+    knock.play(el);
   }
 };
 
 var getRandomVal = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+var playSound = function(soundType) {
+  var sound = document.createElement('audio');
+  sound.setAttribute('src', `assets/sounds/${soundType}`);
+  sound.play();
+  sound.remove();
 };
 
 var rotateScene = function(direction) {
@@ -154,6 +167,7 @@ var showCoinModal = function(amt, content) {
   $coinModal.querySelector('.button').innerHTML = content && content.button ? content.button : 'I earned it';
   $coinModal.querySelector('.link').innerHTML = content && content.link ? content.link : 'I didn\'t earn it';
   $coinModal.querySelector('.button').onclick = function() {
+    playSound('chaching.mp3');
     updateCoins(amt);
     enableTippets();
     closeCoinModal();
@@ -208,16 +222,21 @@ var renderDaysSince = function(elapsed){
 };
 
 function days_between(date1, date2) {
-    var ONE_DAY = 1000 * 60 * 60 * 24;
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+    const ONE_HOUR = 1000 * 60 * 60;
+    const ONE_MINUTE = 1000 * 60;
     var date1_ms = date1.getTime();
     var date2_ms = date2.getTime();
     var difference_ms = Math.abs(date1_ms - date2_ms);
     var absHoursDifference = Math.abs(date2.getHours() - date1.getHours());
     var absMinutesDifference = Math.abs(date2.getMinutes() - date1.getMinutes());
-    var minutes = 60 + date2.getMinutes() - date1.getMinutes() <= 30 ||  60 + date2.getMinutes() - date1.getMinutes() >= 60 ? absMinutesDifference : 60 + date2.getMinutes() - date1.getMinutes();
-    var hours = minutes <= 30  || 24 + date2.getHours() - date1.getHours() >= 24 ? absHoursDifference : 24 - absHoursDifference - 1;
+    var days = Math.floor(difference_ms/ONE_DAY);
+    var hours = Math.abs(days*24 - Math.floor(difference_ms/ONE_HOUR));
+    var minutes = Math.abs(days*24*60 - Math.floor(difference_ms/ONE_MINUTE)) - hours * 60;
+    // var minutes = 60 + date2.getMinutes() - date1.getMinutes() <= 30 ||  60 + date2.getMinutes() - date1.getMinutes() >= 60 ? absMinutesDifference : 60 + date2.getMinutes() - date1.getMinutes();
+    // var hours = minutes <= 30  || 24 + date2.getHours() - date1.getHours() >= 24 ? 24 - absHoursDifference : 24 - absHoursDifference - 1;
     return {
-      days: Math.floor(difference_ms/ONE_DAY),
+      days: days,
       hours: hours,
       minutes: minutes
     };
@@ -244,10 +263,11 @@ var initScene = function() {
     }
     localforage.getItem('last_login').then(function(ll) {
       if(ll) {
-        var totalElapsed = days_between(ll, now);
+        var localElapsed = days_between(ll, now);
+        var totalElapsed = days_between(fl, now);
         lastLogin = ll;
-        if(totalElapsed.days > 0) {
-          showCoinModal(totalElapsed.days*2, {
+        if(localElapsed.days > 0) {
+          showCoinModal(totalElapsed.days+1, {
             title: 'A new day beings'
           });
         }
@@ -280,18 +300,21 @@ var initScene = function() {
     });
     sessionElapsed = days_between(firstLogin, now);
     renderDaysSince(sessionElapsed);
-    renderLayers();
+    // renderLayers();
   });
 };
 
 var tick = function() {
   var now = new Date();
-  var elapsed = days_between(lastLogin, now);
-  if(elapsed.minutes > 0) {
-    renderDaysSince(days_between(firstLogin, now));
+  var localElapsed = days_between(lastLogin, now);
+  var totalElapsed = days_between(firstLogin, now);
+  if(localElapsed.days > 0) {
+    showCoinModal(totalElapsed.days, {
+      title: 'A new day beings'
+    });
   }
-  if(elapsed.days > 0) {
-    showCoinModal(elapsed.days*2);
+  if(localElapsed.minutes > 0) {
+    renderDaysSince(days_between(firstLogin, now));
   }
 };
 
