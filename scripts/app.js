@@ -284,6 +284,7 @@ var tick = function() {
     showCoinModal(totalElapsed.days, {
       title: 'A new day begins'
     });
+    localforage.setItem('last_login', now);
   }
   if(localElapsed.minutes > 0) {
     renderClock(getTimeDifference(firstLogin, now));
