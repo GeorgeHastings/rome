@@ -12,6 +12,7 @@
 	<body>
 		<div class="logo lazy-load"><img src="assets/images/logo.svg"></div>
 		<div id="scene" class="scene desert lazy-load">
+			<div class="atmosphere"></div>
 			<div id="scene_grid" class="grid iso"></div>
 			<div id="ground_grid" class="grid iso"></div>
 		</div>
@@ -21,7 +22,7 @@
 		</div>
 		<div class="bottom-left">
 			<div class="coin-counter lazy-load" id="coin_count"></div>
-			<div class="self-reward lazy-load link" id="self_reward" onclick="showCoinModal(1, {title: 'Treat yoself'})">I deserve a coin</div>
+			<div class="self-reward lazy-load link" id="self_reward" onclick="showCoinModal(1, {title: 'Treat yoself'})">I earned a coin</div>
 		</div>
 		<div class="coin-modal" id="coin_modal">
 			<div class="coin">1</div>

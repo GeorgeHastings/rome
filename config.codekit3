@@ -116,6 +116,50 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/assets\/images\/textures\/dust.png": {
+		"ft": 32768,
+		"iS": 7172,
+		"oA": 0,
+		"oAP": "\/assets\/images\/textures\/dust.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/assets\/images\/textures\/dust2.png": {
+		"ft": 32768,
+		"iS": 2165,
+		"oA": 0,
+		"oAP": "\/assets\/images\/textures\/dust2.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/assets\/images\/textures\/dust3.png": {
+		"ft": 32768,
+		"iS": 2157,
+		"oA": 0,
+		"oAP": "\/assets\/images\/textures\/dust3.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/assets\/images\/textures\/dust_white.png": {
+		"ft": 32768,
+		"iS": 2152,
+		"oA": 0,
+		"oAP": "\/assets\/images\/textures\/dust_white.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/assets\/images\/textures\/Group.png": {
 		"ft": 32768,
 		"iS": 61170,
@@ -124,6 +168,17 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/assets\/images\/textures\/hut.png": {
+		"ft": 32768,
+		"iS": 2192,
+		"oA": 0,
+		"oAP": "\/assets\/images\/textures\/hut.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},
@@ -146,6 +201,17 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/assets\/images\/textures\/ivy_hut.png": {
+		"ft": 32768,
+		"iS": 2313,
+		"oA": 0,
+		"oAP": "\/assets\/images\/textures\/ivy_hut.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},
@@ -297,6 +363,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/assets\/sounds\/chaching.mp3",
+		"oF": 0
+		},
+	"\/assets\/sounds\/spend.wav": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/assets\/sounds\/spend.wav",
 		"oF": 0
 		},
 	"\/css\/fonts\/GT-Walsheim-Pro-Bold-Oblique.eot": {

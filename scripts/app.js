@@ -107,6 +107,7 @@ var upgradeSquare = function(e){
       el.setAttribute('data-tippet', tippets[currentState+1]);
       tippet.inject(tippets[currentState+1]);
       playSound('build.wav');
+      playSound('spend.wav');
       updateCoins(-cost);
       localforage.setItem('scene', sceneGrid);
     }
@@ -190,51 +191,23 @@ document.body.onkeydown = function(e) {
   }
 };
 
-//INIT DUST
-
-var layers = 2;
-var starsPerLayer = 80;
-
-var renderLayers = function() {
-  for(var i = 0; i < layers; i++) {
-    var newLayer = document.createElement('div');
-    newLayer.classList.add('layer');
-    populateParticles(starsPerLayer, newLayer);
-    document.getElementById('scene').appendChild(newLayer);
-  }
-};
-
-var populateParticles = function(amt, container) {
-  for(var i = 0; i < amt; i++) {
-    var el = document.createElement('div');
-    el.classList.add('star');
-    var top = Math.floor(Math.random() * window.innerHeight);
-    var left = Math.floor(Math.random() * window.innerWidth);
-    el.style.top = top+'px';
-    el.style.left = left+'px';
-    container.appendChild(el);
-  }
-};
-
-var renderDaysSince = function(elapsed){
+var renderClock = function(elapsed){
   $counter.querySelector('h2').innerHTML = elapsed.days + ' days';
   $counter.querySelector('h4').innerHTML = `${elapsed.hours} hours, ${elapsed.minutes} minutes`;
 };
 
-function days_between(date1, date2) {
+function getTimeDifference(a, b) {
     const ONE_DAY = 1000 * 60 * 60 * 24;
     const ONE_HOUR = 1000 * 60 * 60;
     const ONE_MINUTE = 1000 * 60;
-    var date1_ms = date1.getTime();
-    var date2_ms = date2.getTime();
+    var date1_ms = a.getTime();
+    var date2_ms = b.getTime();
     var difference_ms = Math.abs(date1_ms - date2_ms);
-    var absHoursDifference = Math.abs(date2.getHours() - date1.getHours());
-    var absMinutesDifference = Math.abs(date2.getMinutes() - date1.getMinutes());
+    var absHoursDifference = Math.abs(b.getHours() - a.getHours());
+    var absMinutesDifference = Math.abs(b.getMinutes() - a.getMinutes());
     var days = Math.floor(difference_ms/ONE_DAY);
     var hours = Math.abs(days*24 - Math.floor(difference_ms/ONE_HOUR));
     var minutes = Math.abs(days*24*60 - Math.floor(difference_ms/ONE_MINUTE)) - hours * 60;
-    // var minutes = 60 + date2.getMinutes() - date1.getMinutes() <= 30 ||  60 + date2.getMinutes() - date1.getMinutes() >= 60 ? absMinutesDifference : 60 + date2.getMinutes() - date1.getMinutes();
-    // var hours = minutes <= 30  || 24 + date2.getHours() - date1.getHours() >= 24 ? 24 - absHoursDifference : 24 - absHoursDifference - 1;
     return {
       days: days,
       hours: hours,
@@ -263,12 +236,12 @@ var initScene = function() {
     }
     localforage.getItem('last_login').then(function(ll) {
       if(ll) {
-        var localElapsed = days_between(ll, now);
-        var totalElapsed = days_between(fl, now);
+        var localElapsed = getTimeDifference(ll, now);
+        var totalElapsed = getTimeDifference(fl, now);
         lastLogin = ll;
         if(localElapsed.days > 0) {
           showCoinModal(totalElapsed.days+1, {
-            title: 'A new day beings'
+            title: 'A new day begins'
           });
         }
         else {
@@ -298,23 +271,22 @@ var initScene = function() {
         }, 1000);
       });
     });
-    sessionElapsed = days_between(firstLogin, now);
-    renderDaysSince(sessionElapsed);
-    // renderLayers();
+    sessionElapsed = getTimeDifference(firstLogin, now);
+    renderClock(sessionElapsed);
   });
 };
 
 var tick = function() {
   var now = new Date();
-  var localElapsed = days_between(lastLogin, now);
-  var totalElapsed = days_between(firstLogin, now);
+  var localElapsed = getTimeDifference(lastLogin, now);
+  var totalElapsed = getTimeDifference(firstLogin, now);
   if(localElapsed.days > 0) {
     showCoinModal(totalElapsed.days, {
-      title: 'A new day beings'
+      title: 'A new day begins'
     });
   }
   if(localElapsed.minutes > 0) {
-    renderDaysSince(days_between(firstLogin, now));
+    renderClock(getTimeDifference(firstLogin, now));
   }
 };
 

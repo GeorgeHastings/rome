@@ -180,7 +180,7 @@ html {
       position: absolute;
       width: inherit;
       height: 10vh;
-      background-image: url("../assets/images/textures/sand.png");
+      background-image: url("../assets/images/textures/hut.png");
       background-blend-mode: soft-light;
       background-size: 100%;
       background-position: 50% 0%;
@@ -378,6 +378,18 @@ html {
     transform: perspective(500px) translate3d(-100%, 0, 0); }
   100% {
     transform: perspective(500px) translate3d(100%, 0, 0); } }
+  .desert .atmosphere {
+    width: 200%;
+    height: 100%;
+    background: url("../assets/images/textures/dust3.png") repeat;
+    background-size: 150px;
+    animation: scrollX 20s linear infinite; }
+
+@keyframes scrollX {
+  from {
+    transform: translate3d(0, 0, 0); }
+  to {
+    transform: translate3d(-50%, 0, 0); } }
   .desert + .day-counter,
   .desert ~ .bottom-left {
     color: #655c4d; }
@@ -455,7 +467,7 @@ html {
       position: absolute;
       width: inherit;
       height: 10vh;
-      background-image: url("../assets/images/textures/ivy.png");
+      background-image: url("../assets/images/textures/ivy_hut.png");
       background-blend-mode: soft-light;
       background-size: 100%;
       background-position: 50% 0%;
@@ -653,6 +665,18 @@ html {
     transform: perspective(500px) translate3d(0, 100%, 0); }
   100% {
     transform: perspective(500px) translate3d(0, -100%, 0); } }
+  .forest .atmosphere {
+    width: 100%;
+    height: 200%;
+    background: url("../assets/images/textures/dust_white.png") repeat;
+    background-size: 200px;
+    animation: scrollY 20s linear infinite; }
+
+@keyframes scrollY {
+  from {
+    transform: translate3d(0, 0, 0); }
+  to {
+    transform: translate3d(0, -50%, 0); } }
   .forest ~ .bottom-left,
   .forest ~ .bottom-left .link,
   .forest ~ .day-counter {
@@ -930,6 +954,14 @@ html {
     background-color: #4c25ff;
     transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
     transform-origin: -50% 0%; }
+
+.atmosphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  opacity: 0.5;
+  pointer-events: none; }
 
 .day-counter {
   position: absolute;
