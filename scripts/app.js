@@ -12,7 +12,7 @@ var sceneUnits = {
 };
 
 var tippets = {
-  0: '<div class="coin small">1: Place a foundation</div>',
+  0: '<div class="coin small">1: Clear a foundation</div>',
   1: '<div class="coin small">1: Build a hut</div>',
   2: '<div class="coin small">2: Build a hall</div>',
   3: '<div class="coin small">3: Build a tower</div>',
@@ -64,25 +64,20 @@ var $coins = document.getElementById('coin_count');
 var $coinModal = document.getElementById('coin_modal');
 
 var renderGrid = function(grid, id) {
-  document.getElementById(id).innerHTML = '';
-  var texture;
-  if(id === 'scene_grid') {
-    texture = sceneUnits;
-  }
-  else {
-    texture = groundUnits;
-  }
+  var texture = id === 'scene_grid' ? sceneUnits : groundUnits;
+  var frag = ``;
   for (var i = 0; i < grid.length; i++) {
-    var el = document.createElement('div');
-    el.setAttribute('data-index', i);
-    el.classList = texture[grid[i]];
-    el.onclick = upgradeSquare;
-    if(coins > 0) {
-      el.setAttribute('data-tippet', tippets[grid[i]]);
+    var tile;
+    if(id === 'scene_grid') {
+      tile = `<div class="${texture[grid[i]]}" data-index="${i}" onclick="upgradeSquare()"></div>`;
     }
-    document.getElementById(id).appendChild(el);
+    else {
+      tile = `<div class="ground" data-index="${i}"></div>`;
+    }
+    frag += tile;
   }
-  tippet.update();
+  document.getElementById(id).innerHTML = frag;
+  enableTippets();
 };
 
 var enableTippets = function() {
@@ -93,8 +88,8 @@ var enableTippets = function() {
   tippet.update();
 };
 
-var upgradeSquare = function(e){
-  var el = e.target;
+var upgradeSquare = function(){
+  var el = event.target;
   var states = ['', 'doorway', 'wall', 'tower', 'spire', 'monolith', 'megalith'];
   var currentState = states.indexOf(el.classList.value);
   var cost = currentState <= 1 ? 1 : currentState;

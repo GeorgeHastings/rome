@@ -177,7 +177,7 @@ html {
     background-blend-mode: soft-light;
     background-size: 100%;
     background-color: #B2AC7C;
-    background-image: url("../assets/images/textures/sand.png"); }
+    background-image: url("../assets/images/textures/roof.png"); }
     .desert .wall:before, .desert .wall:after {
       content: "";
       position: absolute;
@@ -212,7 +212,7 @@ html {
       position: absolute;
       width: inherit;
       height: 16vh;
-      background-image: url("../assets/images/textures/wood_door.png");
+      background-image: url("../assets/images/textures/wood_door2.png");
       background-blend-mode: soft-light;
       background-size: contain;
       background-position: 0% 100%;
@@ -241,7 +241,7 @@ html {
       position: absolute;
       width: inherit;
       height: 24vh;
-      background-image: url("../assets/images/textures/brick.png");
+      background-image: url("../assets/images/textures/tower.png");
       background-blend-mode: soft-light;
       background-size: contain;
       background-position: 0% 100%;
@@ -342,51 +342,6 @@ html {
       background-color: #75ab95;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .desert .layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: inherit;
-    height: inherit;
-    animation: left 30s linear infinite;
-    transform-origin: 50% 50%;
-    opacity: 0.7;
-    pointer-events: none; }
-    .desert .layer:nth-child(1) {
-      animation-delay: -15s; }
-    .desert .layer:nth-child(2) {
-      animation-delay: -30s; }
-    .desert .layer:nth-child(3) {
-      animation-delay: -45s; }
-    .desert .layer:nth-child(4) {
-      animation-delay: -60s; }
-    .desert .layer:nth-child(5) {
-      animation-delay: -75s; }
-    .desert .layer:nth-child(6) {
-      animation-delay: -90s; }
-    .desert .layer:nth-child(7) {
-      animation-delay: -105s; }
-    .desert .layer:nth-child(8) {
-      animation-delay: -120s; }
-    .desert .layer:nth-child(9) {
-      animation-delay: -135s; }
-    .desert .layer:nth-child(10) {
-      animation-delay: -150s; }
-    .desert .layer:nth-child(11) {
-      animation-delay: -165s; }
-    .desert .layer .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background-color: #B2AC7C; }
-
-@keyframes left {
-  0% {
-    transform: perspective(500px) translate3d(-100%, 0, 0); }
-  100% {
-    transform: perspective(500px) translate3d(100%, 0, 0); } }
   .desert .atmosphere {
     width: 200%;
     height: 100%;
@@ -637,56 +592,12 @@ html {
       background-color: #9e975d;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .forest .layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: inherit;
-    height: inherit;
-    animation: top 50s linear infinite;
-    transform-origin: 50% 50%;
-    opacity: 0.7;
-    pointer-events: none; }
-    .forest .layer:nth-child(1) {
-      animation-delay: -25s; }
-    .forest .layer:nth-child(2) {
-      animation-delay: -50s; }
-    .forest .layer:nth-child(3) {
-      animation-delay: -75s; }
-    .forest .layer:nth-child(4) {
-      animation-delay: -100s; }
-    .forest .layer:nth-child(5) {
-      animation-delay: -125s; }
-    .forest .layer:nth-child(6) {
-      animation-delay: -150s; }
-    .forest .layer:nth-child(7) {
-      animation-delay: -175s; }
-    .forest .layer:nth-child(8) {
-      animation-delay: -200s; }
-    .forest .layer:nth-child(9) {
-      animation-delay: -225s; }
-    .forest .layer:nth-child(10) {
-      animation-delay: -250s; }
-    .forest .layer:nth-child(11) {
-      animation-delay: -275s; }
-    .forest .layer .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background-color: #fff; }
-
-@keyframes top {
-  0% {
-    transform: perspective(500px) translate3d(0, 100%, 0); }
-  100% {
-    transform: perspective(500px) translate3d(0, -100%, 0); } }
   .forest .atmosphere {
     width: 100%;
     height: 200%;
     background: url("../assets/images/textures/dust_white.png") repeat;
     background-size: 200px;
+    opacity: 0.2;
     animation: scrollY 20s linear infinite; }
 
 @keyframes scrollY {
@@ -803,7 +714,7 @@ html {
       position: absolute;
       width: inherit;
       height: 16vh;
-      background-image: url("../assets/images/textures/wood_door.png");
+      background-image: url("../assets/images/textures/wood_door2.png");
       background-blend-mode: soft-light;
       background-size: contain;
       background-position: 0% 100%;
@@ -904,51 +815,6 @@ html {
       background-color: #75ab95;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .interior .layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: inherit;
-    height: inherit;
-    animation: bottom 70s linear infinite;
-    transform-origin: 50% 50%;
-    opacity: 0.7;
-    pointer-events: none; }
-    .interior .layer:nth-child(1) {
-      animation-delay: -35s; }
-    .interior .layer:nth-child(2) {
-      animation-delay: -70s; }
-    .interior .layer:nth-child(3) {
-      animation-delay: -105s; }
-    .interior .layer:nth-child(4) {
-      animation-delay: -140s; }
-    .interior .layer:nth-child(5) {
-      animation-delay: -175s; }
-    .interior .layer:nth-child(6) {
-      animation-delay: -210s; }
-    .interior .layer:nth-child(7) {
-      animation-delay: -245s; }
-    .interior .layer:nth-child(8) {
-      animation-delay: -280s; }
-    .interior .layer:nth-child(9) {
-      animation-delay: -315s; }
-    .interior .layer:nth-child(10) {
-      animation-delay: -350s; }
-    .interior .layer:nth-child(11) {
-      animation-delay: -385s; }
-    .interior .layer .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background-color: rgba(255, 255, 255, 0.3); }
-
-@keyframes bottom {
-  0% {
-    transform: perspective(500px) translate3d(0, -100%, 0); }
-  100% {
-    transform: perspective(500px) translate3d(0, 100%, 0); } }
 
 .goal {
   background-color: #7658FF;

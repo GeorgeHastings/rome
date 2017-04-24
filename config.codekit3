@@ -309,6 +309,17 @@
 		"oAP": "\/assets\/images\/textures\/textures.sketch",
 		"oF": 0
 		},
+	"\/assets\/images\/textures\/tower.png": {
+		"ft": 32768,
+		"iS": 7126,
+		"oA": 0,
+		"oAP": "\/assets\/images\/textures\/tower.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
 	"\/assets\/images\/textures\/wood.png": {
 		"ft": 32768,
 		"iS": 1694,
@@ -328,6 +339,17 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/assets\/images\/textures\/wood_door2.png": {
+		"ft": 32768,
+		"iS": 4078,
+		"oA": 0,
+		"oAP": "\/assets\/images\/textures\/wood_door2.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},

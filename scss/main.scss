@@ -65,16 +65,16 @@ $ground-door-grass: ('door', (#88DEBF, 'sand'), (#88DEBF, 'ornate'));
 $ground-grass: ('ground', (darken(#88DEBF, 10%), 'sand'), false);
 
 $wall-dirt: ('wall', ($darkdirt, 'sand'), false);
-$wall-sand: ('wall', ($dirt, 'hut'), ($dirt, 'sand'));
+$wall-sand: ('wall', ($dirt, 'hut'), ($dirt, 'roof'));
 $wall-grass: ('wall', (#67AC9A, 'ivy_hut'), (#67AC9A, 'ivy'));
 $wall-mudbrick: ('wall', ($dirt, 'brick'), false);
 $wall-wood: ('wall', ($dirt, 'wood_ver'), false);
 
 $tower-sand: ('tower', ($dirt, 'sand'), false);
 $tower-green: ('tower', (#95BEAD, 'wood_hor'), (#95BEAD, 'ornate'));
-$tower-wood: ('tower', ($wood, 'wood_door'), ($wood, 'roof'));
+$tower-wood: ('tower', ($wood, 'wood_door2'), ($wood, 'roof'));
 
-$spire-sand: ('spire', ($dirt, 'brick'), ($dirt, 'ornate'));
+$spire-sand: ('spire', ($dirt, 'tower'), ($dirt, 'ornate'));
 $spire-green: ('spire', (#7BA7A5, 'brick'), (#7BA7A5, 'squares_light'));
 $spire-stone: ('spire', (map-get($grayscale, 4), 'brick'), (map-get($grayscale, 4), 'ornate'));
 
@@ -241,42 +241,6 @@ html{
   }
 }
 
-@mixin atmosphere($color, $direction, $speed) {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: inherit;
-  height: inherit;
-  animation: #{$direction} #{$speed}s linear infinite;
-  transform-origin: 50% 50%;
-  opacity: 0.7;
-  pointer-events: none;
-
-  @for $i from 1 through 11 {
-    &:nth-child(#{$i}) {
-      animation-delay: -#{$i*$speed/2}s;
-    }
-  }
-
-  .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background-color: $color;
-  }
-
-  @keyframes #{$direction} {
-    0% {
-      transform: perspective(500px) nth(map-get($atmosdirections, $direction), 1);
-    }
-    100% {
-      transform: perspective(500px) nth(map-get($atmosdirections, $direction), 2);
-    }
-  }
-}
-
 .empty {
   @include threedee-box($empty...);
 }
@@ -315,9 +279,9 @@ html{
     @include threedee-box($player-desert...);
   }
 
-  .layer {
-    @include atmosphere($atmos-desert...);
-  }
+  // .layer {
+  //   @include atmosphere($atmos-desert...);
+  // }
 
   .atmosphere {
     width: 200%;
@@ -375,15 +339,16 @@ html{
     @include threedee-box($player-forest...);
   }
 
-  .layer {
-    @include atmosphere($atmos-forest...);
-  }
+  // .layer {
+  //   @include atmosphere($atmos-forest...);
+  // }
 
   .atmosphere {
     width: 100%;
     height: 200%;
     background: url('../assets/images/textures/dust_white.png') repeat;
     background-size: 200px;
+    opacity: 0.2;
     animation: scrollY 20s linear infinite;
 
     @keyframes scrollY {
@@ -433,9 +398,9 @@ html{
     @include threedee-box($player-desert...);
   }
 
-  .layer {
-    @include atmosphere($atmos-interior...);
-  }
+  // .layer {
+  //   @include atmosphere($atmos-interior...);
+  // }
 }
 
 .goal {
