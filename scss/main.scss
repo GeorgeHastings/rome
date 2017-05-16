@@ -30,21 +30,20 @@ $darkdirt: #655c4d;
 $marble: map-get($grayscale, 1);
 $gold: #FFD700;
 
-$ground-height: 4vh;
-$wall-height: 15vh;
-$tower-height: 25vh;
-$spire-height: 35vh;
-$monolith-height: 45vh;
+// $ground-height: 0em;
+// $wall-height: 2em;
+// $tower-height: 4em;
+// $spire-height: 6em;
+// $monolith-height: 8em;
 
 $heights: (
-  'door': 0vh,
-  'ground': 4vh,
-  'player': 4vh,
-  'wall': 8vh,
-  'tower': 16vh,
-  'spire': 24vh,
-  'monolith': 32vh,
-  'megalith': 40vh
+  'door': 0em,
+  'ground': 1em,
+  'wall': 2em,
+  'tower': 4em,
+  'spire': 6em,
+  'monolith': 8em,
+  'megalith': 10em
 );
 
 $atmosdirections: (
@@ -61,7 +60,7 @@ $ground-dirt: ('ground', ($dirt, 'sand'), false);
 $ground-wood: ('ground', ($wood, 'wood_ver'), false);
 $ground-door-wood: ('door', ($wood, 'wood_hor'), ($wood, 'ornate'));
 $ground-door-sand: ('door', ($sand, 'sand'), ($sand, 'ornate'));
-$ground-door-grass: ('door', (#88DEBF, 'sand'), (#88DEBF, 'ornate'));
+$ground-door-grass: ('door', (#88DEBF, 'sand'), false);
 $ground-grass: ('ground', (darken(#88DEBF, 10%), 'sand'), false);
 
 $wall-dirt: ('wall', ($darkdirt, 'sand'), false);
@@ -98,21 +97,17 @@ body,
 html{
   font-family: 'Overpass Mono', monospace;
   height: 100%;
+  width: 100%;
   margin: 0;
-  font-size: 18px;
+  font-size: 21px;
   overflow: hidden;
   background: $greensky;
 }
 
-.lazy-load {
-  opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: all 1s cubic-bezier(0,1,0,1);
-
-  &.show {
-    opacity: 1;
-    transform: translate3d(0, 0px, 0);
-  }
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .scene {
@@ -147,7 +142,7 @@ html{
   z-index: 1;
 
   &.iso {
-    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0,0,-20vh);
+    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0,0,0em);
   }
 }
 
@@ -155,17 +150,19 @@ html{
   z-index: 0;
 
   &.iso {
-    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0,0,-24vh);
+    transform: rotateX(55deg) rotateZ(-135deg) translate3d(0,0,-1em);
   }
 }
 
 .grid {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  width: 80vh;
-  height: 80vh;
+  top: 25%;
+  font-size: 1.4em;
+  width: 20em;
+  height: 20em;
   display: flex;
   margin: 0 auto;
   flex-direction: row;
@@ -173,11 +170,11 @@ html{
   align-items: center;
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  transition: all 1s cubic-bezier(0,1,0,1);
+  transition: transform 1s cubic-bezier(0,1,0,1);
 
   div {
-    width: 8vh;
-    height: 8vh;
+    width: 2em;
+    height: 2em;
     text-align: center;
     cursor: pointer;
     transform-origin: 50% 50%;
@@ -190,10 +187,6 @@ html{
       outline: 2px solid rgba(255,255,255,0.5);
     }
   }
-
-  &.sidescroller {
-    transform: rotateX(90deg) rotateZ(-90deg) translate3d(0,0,-35vh);
-  }
 }
 
 @mixin threedee-box($type, $main-skin, $roof-skin) {
@@ -203,7 +196,7 @@ html{
   transform: translate3d(0,0,$height);
   transform-style: preserve-3d;
   animation-fill-mode: forwards;
-  transition: height 0.5s cubic-bezier(0,0,0,1), transform 0.5s cubic-bezier(0,0,0,1);
+  transition: transform 0.5s cubic-bezier(0,0,0,1);
   background-blend-mode: soft-light;
   background-size: 100%;
 
@@ -226,12 +219,12 @@ html{
     background-size: contain;
     background-position: 0% 100%;
     background-repeat: repeat;
-    transition: all 0.5s cubic-bezier(0,0,0,1);
+    transition: transform 0.5s cubic-bezier(0,0,0,1), background-color 0.5s cubic-bezier(0,0,0,1), height 0.5s cubic-bezier(0,0,0,1);
   }
 
   &:before {
     background-color: lighten(nth($main-skin, 1), 10%);
-    transform: rotateX(-90deg) rotateY(0deg) translate3d(-50%, 0, 0);
+    transform: rotateX(-90deg) rotateY(180deg) translate3d(50%, 0, 0);
     transform-origin: 50% 0%;
   }
   &:after {
@@ -425,6 +418,7 @@ html{
   text-align: center;
   margin: 0 auto;
   z-index: 9999;
+  pointer-events: none;
 }
 
 .bottom-left {
@@ -439,12 +433,11 @@ html{
 }
 
 .coin-counter {
-  font-size: 1rem;
 
   &:before {
     position: absolute;
     left: -25px;
-    top: 6px;
+    top: 15px;
     content: "";
     width: 15px;
     height: 15px;

@@ -25,6 +25,17 @@ var groundUnits = {
   0: 'ground',
 };
 
+var unitHeights = {
+  'ground': 1,
+  'wall': 2,
+  'tower': 4,
+  'spire': 6,
+  'monolith': 8,
+  'megalith': 10,
+};
+
+var states = ['empty', 'doorway', 'wall', 'tower', 'spire', 'monolith', 'megalith'];
+
 var upgrade = new Pizazz({
   size: 30,
   buffer: 20,
@@ -65,13 +76,12 @@ var $coinModal = document.getElementById('coin_modal');
 
 var renderGrid = function(grid, id) {
   var texture = id === 'scene_grid' ? sceneUnits : groundUnits;
-  var frag = ``;
+  var frag = '';
   for (var i = 0; i < grid.length; i++) {
     var tile;
-    if(id === 'scene_grid') {
+    if (id === 'scene_grid') {
       tile = `<div class="${texture[grid[i]]}" data-index="${i}" onclick="upgradeSquare()"></div>`;
-    }
-    else {
+    } else {
       tile = `<div class="ground" data-index="${i}"></div>`;
     }
     frag += tile;
@@ -90,16 +100,17 @@ var enableTippets = function() {
 
 var upgradeSquare = function(){
   var el = event.target;
-  var states = ['', 'doorway', 'wall', 'tower', 'spire', 'monolith', 'megalith'];
   var currentState = states.indexOf(el.classList.value);
   var cost = currentState <= 1 ? 1 : currentState;
   if(coins >= cost) {
     var index = [].indexOf.call($scene.childNodes, el);
     if(currentState < states.length - 1) {
-      el.classList = states[currentState+1];
-      sceneGrid[index] = currentState+1;
+      currentState = currentState < states.length - 1 ? currentState : -1;
+      el.classList = states[currentState + 1];
+      var height = unitHeights[states[currentState + 1]];
+      el.setAttribute('style',`transform: translate3d(0,0,${height}em) rotateZ(${-45 * (sceneRotation / 45) + 225}deg)`);
+      sceneGrid[index] = currentState + 1;
       upgrade.play(el);
-      el.setAttribute('data-tippet', tippets[currentState+1]);
       tippet.inject(tippets[currentState+1]);
       playSound('build.wav');
       playSound('spend.wav');
@@ -134,11 +145,12 @@ var playSound = function(soundType) {
 var rotateScene = function(direction) {
   var delta = direction === 'left' ? -90 : 90;
   sceneRotation += delta;
-  $scene.setAttribute('style',`transform: rotateX(55deg) rotateZ(${sceneRotation}deg) translate3d(0,0,-25vh)`);
-  // var elements = [...$scene.querySelectorAll('div')];
-  // for(var element of elements) {
-  //   element.setAttribute('style',`transform: rotateZ(${sceneRotation + (sceneRotation/45)*-45}deg)`);
-  // }
+  $scene.setAttribute('style', `transform: rotateX(55deg) rotateZ(${sceneRotation}deg) translate3d(0,0,0em)`);
+  var elements = [...$scene.querySelectorAll('div:not(.empty)')];
+  for(var element of elements) {
+    var height = unitHeights[element.classList[0]];
+    element.setAttribute('style',`transform: translate3d(0,0,${height}em) rotateZ(${-45 * (sceneRotation / 45) + 225}deg)`);
+  }
 };
 
 var updateCoins = function(amt) {
@@ -279,6 +291,7 @@ var tick = function() {
     showCoinModal(totalElapsed.days, {
       title: 'A new day begins'
     });
+    lastLogin = now;
     localforage.setItem('last_login', now);
   }
   if(localElapsed.minutes > 0) {
