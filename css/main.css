@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Space+Mono");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
 * {
   box-sizing: border-box; }
 
 body,
 html {
-  font-family: 'Overpass Mono', monospace;
+  font-family: 'Roboto Mono', monospace;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -137,7 +139,7 @@ body {
       background-color: #e8d851;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .desert .doorway {
+  .desert .foundation {
     background-color: #EEE27E;
     transform: translate3d(0, 0, 0em);
     transform-style: preserve-3d;
@@ -147,7 +149,7 @@ body {
     background-size: 100%;
     background-color: #EEE27E;
     background-image: url("../assets/images/textures/ornate.png"); }
-    .desert .doorway:before, .desert .doorway:after {
+    .desert .foundation:before, .desert .foundation:after {
       content: "";
       position: absolute;
       width: inherit;
@@ -158,15 +160,15 @@ body {
       background-position: 0% 100%;
       background-repeat: repeat;
       transition: transform 0.5s cubic-bezier(0, 0, 0, 1), background-color 0.5s cubic-bezier(0, 0, 0, 1), height 0.5s cubic-bezier(0, 0, 0, 1); }
-    .desert .doorway:before {
+    .desert .foundation:before {
       background-color: #f4ecab;
       transform: rotateX(-90deg) rotateY(180deg) translate3d(50%, 0, 0);
       transform-origin: 50% 0%; }
-    .desert .doorway:after {
+    .desert .foundation:after {
       background-color: #e8d851;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .desert .wall {
+  .desert .hut {
     background-color: #B2AC7C;
     transform: translate3d(0, 0, 2em);
     transform-style: preserve-3d;
@@ -176,7 +178,7 @@ body {
     background-size: 100%;
     background-color: #B2AC7C;
     background-image: url("../assets/images/textures/roof.png"); }
-    .desert .wall:before, .desert .wall:after {
+    .desert .hut:before, .desert .hut:after {
       content: "";
       position: absolute;
       width: inherit;
@@ -187,11 +189,11 @@ body {
       background-position: 0% 100%;
       background-repeat: repeat;
       transition: transform 0.5s cubic-bezier(0, 0, 0, 1), background-color 0.5s cubic-bezier(0, 0, 0, 1), height 0.5s cubic-bezier(0, 0, 0, 1); }
-    .desert .wall:before {
+    .desert .hut:before {
       background-color: #c5c09c;
       transform: rotateX(-90deg) rotateY(180deg) translate3d(50%, 0, 0);
       transform-origin: 50% 0%; }
-    .desert .wall:after {
+    .desert .hut:after {
       background-color: #9e975d;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
@@ -343,8 +345,7 @@ body {
     width: 200%;
     height: 100%;
     background: url("../assets/images/textures/dust3.png") repeat;
-    background-size: 150px;
-    animation: scrollX 20s linear infinite; }
+    background-size: 150px; }
 
 @keyframes scrollX {
   from {
@@ -353,7 +354,7 @@ body {
     transform: translate3d(-50%, 0, 0); } }
   .desert + .day-counter,
   .desert ~ .bottom-left {
-    color: #655c4d; }
+    color: #333; }
 
 .forest {
   background: linear-gradient(to top, #135359, #03d7c7); }
@@ -386,7 +387,7 @@ body {
       background-color: #38c894;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .forest .doorway {
+  .forest .foundation {
     background-color: #88DEBF;
     transform: translate3d(0, 0, 0em);
     transform-style: preserve-3d;
@@ -396,7 +397,7 @@ body {
     background-size: 100%;
     background-color: #88DEBF;
     background-image: url("../assets/images/textures/sand.png"); }
-    .forest .doorway:before, .forest .doorway:after {
+    .forest .foundation:before, .forest .foundation:after {
       content: "";
       position: absolute;
       width: inherit;
@@ -407,15 +408,15 @@ body {
       background-position: 0% 100%;
       background-repeat: repeat;
       transition: transform 0.5s cubic-bezier(0, 0, 0, 1), background-color 0.5s cubic-bezier(0, 0, 0, 1), height 0.5s cubic-bezier(0, 0, 0, 1); }
-    .forest .doorway:before {
+    .forest .foundation:before {
       background-color: #b0e9d4;
       transform: rotateX(-90deg) rotateY(180deg) translate3d(50%, 0, 0);
       transform-origin: 50% 0%; }
-    .forest .doorway:after {
+    .forest .foundation:after {
       background-color: #60d3aa;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .forest .wall {
+  .forest .hut {
     background-color: #67AC9A;
     transform: translate3d(0, 0, 2em);
     transform-style: preserve-3d;
@@ -425,7 +426,7 @@ body {
     background-size: 100%;
     background-color: #67AC9A;
     background-image: url("../assets/images/textures/ivy.png"); }
-    .forest .wall:before, .forest .wall:after {
+    .forest .hut:before, .forest .hut:after {
       content: "";
       position: absolute;
       width: inherit;
@@ -436,11 +437,11 @@ body {
       background-position: 0% 100%;
       background-repeat: repeat;
       transition: transform 0.5s cubic-bezier(0, 0, 0, 1), background-color 0.5s cubic-bezier(0, 0, 0, 1), height 0.5s cubic-bezier(0, 0, 0, 1); }
-    .forest .wall:before {
+    .forest .hut:before {
       background-color: #88beb0;
       transform: rotateX(-90deg) rotateY(180deg) translate3d(50%, 0, 0);
       transform-origin: 50% 0%; }
-    .forest .wall:after {
+    .forest .hut:after {
       background-color: #4f9180;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
@@ -637,7 +638,7 @@ body {
       background-color: #6e6941;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .interior .doorway {
+  .interior .foundation {
     background-color: #8e8853;
     transform: translate3d(0, 0, 0em);
     transform-style: preserve-3d;
@@ -647,7 +648,7 @@ body {
     background-size: 100%;
     background-color: #8e8853;
     background-image: url("../assets/images/textures/ornate.png"); }
-    .interior .doorway:before, .interior .doorway:after {
+    .interior .foundation:before, .interior .foundation:after {
       content: "";
       position: absolute;
       width: inherit;
@@ -658,15 +659,15 @@ body {
       background-position: 0% 100%;
       background-repeat: repeat;
       transition: transform 0.5s cubic-bezier(0, 0, 0, 1), background-color 0.5s cubic-bezier(0, 0, 0, 1), height 0.5s cubic-bezier(0, 0, 0, 1); }
-    .interior .doorway:before {
+    .interior .foundation:before {
       background-color: #a9a26c;
       transform: rotateX(-90deg) rotateY(180deg) translate3d(50%, 0, 0);
       transform-origin: 50% 0%; }
-    .interior .doorway:after {
+    .interior .foundation:after {
       background-color: #6e6941;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }
-  .interior .wall {
+  .interior .hut {
     background-color: #655c4d;
     transform: translate3d(0, 0, 2em);
     transform-style: preserve-3d;
@@ -676,7 +677,7 @@ body {
     background-size: 100%;
     background-color: #655c4d;
     background-image: url("../assets/images/textures/sand.png"); }
-    .interior .wall:before, .interior .wall:after {
+    .interior .hut:before, .interior .hut:after {
       content: "";
       position: absolute;
       width: inherit;
@@ -687,11 +688,11 @@ body {
       background-position: 0% 100%;
       background-repeat: repeat;
       transition: transform 0.5s cubic-bezier(0, 0, 0, 1), background-color 0.5s cubic-bezier(0, 0, 0, 1), height 0.5s cubic-bezier(0, 0, 0, 1); }
-    .interior .wall:before {
+    .interior .hut:before {
       background-color: #827663;
       transform: rotateX(-90deg) rotateY(180deg) translate3d(50%, 0, 0);
       transform-origin: 50% 0%; }
-    .interior .wall:after {
+    .interior .hut:after {
       background-color: #484237;
       transform: rotateX(-90deg) rotateY(90deg) translate3d(-150%, 0%, 0px);
       transform-origin: -50% 0%; }

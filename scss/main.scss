@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
 $windergreen: #0047FF;
 $main-accent: $windergreen;
 $seafoam: #32cbb4;
@@ -29,12 +32,6 @@ $wood: darken($dirt, 15%);
 $darkdirt: #655c4d;
 $marble: map-get($grayscale, 1);
 $gold: #FFD700;
-
-// $ground-height: 0em;
-// $wall-height: 2em;
-// $tower-height: 4em;
-// $spire-height: 6em;
-// $monolith-height: 8em;
 
 $heights: (
   'door': 0em,
@@ -95,7 +92,7 @@ $atmos-interior: (rgba(255,255,255,.3), 'bottom', 70);
 
 body,
 html{
-  font-family: 'Overpass Mono', monospace;
+  font-family: 'Roboto Mono', monospace;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -245,11 +242,11 @@ body {
     @include threedee-box($ground-sand...);
   }
 
-  .doorway {
+  .foundation {
     @include threedee-box($ground-door-sand...);
   }
 
-  .wall {
+  .hut {
     @include threedee-box($wall-sand...);
   }
 
@@ -281,7 +278,7 @@ body {
     height: 100%;
     background: url('../assets/images/textures/dust3.png') repeat;
     background-size: 150px;
-    animation: scrollX 20s linear infinite;
+    // animation: scrollX 20s linear infinite;
 
     @keyframes scrollX {
       from {
@@ -295,7 +292,7 @@ body {
 
   & + .day-counter,
   & ~ .bottom-left{
-    color: $darkdirt;
+    color: #333;
   }
 }
 
@@ -306,11 +303,11 @@ body {
     @include threedee-box($ground-grass...);
   }
 
-  .doorway {
+  .foundation {
     @include threedee-box($ground-door-grass...);
   }
 
-  .wall {
+  .hut {
     @include threedee-box($wall-grass...);
   }
 
@@ -368,11 +365,11 @@ body {
     @include threedee-box($ground-wood...);
   }
 
-  .doorway {
+  .foundation {
     @include threedee-box($ground-door-wood...);
   }
 
-  .wall {
+  .hut {
     @include threedee-box($wall-dirt...);
   }
 

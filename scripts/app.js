@@ -1,24 +1,13 @@
 'use strict';
 
 var sceneUnits = {
-  0: '',
-  1: 'doorway',
-  2: 'wall',
+  0: 'empty',
+  1: 'foundation',
+  2: 'hut',
   3: 'tower',
   4: 'spire',
   5: 'monolith',
   6: 'megalith',
-  'p': 'player'
-};
-
-var tippets = {
-  0: '<div class="coin small">1: Clear a foundation</div>',
-  1: '<div class="coin small">1: Build a hut</div>',
-  2: '<div class="coin small">2: Build a hall</div>',
-  3: '<div class="coin small">3: Build a tower</div>',
-  4: '<div class="coin small">4: Build a monolith</div>',
-  5: '<div class="coin small">5: Build a megalith</div>',
-  6: 'This structure is complete'
 };
 
 var groundUnits = {
@@ -27,14 +16,52 @@ var groundUnits = {
 
 var unitHeights = {
   'ground': 1,
-  'wall': 2,
+  'hut': 2,
   'tower': 4,
   'spire': 6,
   'monolith': 8,
   'megalith': 10,
 };
 
-var states = ['empty', 'doorway', 'wall', 'tower', 'spire', 'monolith', 'megalith'];
+var states = ['empty', 'foundation', 'hut', 'tower', 'spire', 'monolith', 'megalith'];
+
+const units = {
+  empty: {
+    price: 0,
+    height: 0,
+    tippet: '<div class="coin small">1: Clear a foundation</div>'
+  },
+  foundation: {
+    price: 1,
+    height: 0,
+    tippet: '<div class="coin small">2: Build a hut</div>'
+  },
+  hut: {
+    price: 2,
+    height: 2,
+    tippet: '<div class="coin small">5: Build a tower</div>'
+  },
+  tower: {
+    price: 5,
+    height: 4,
+    tippet: '<div class="coin small">20: Build a spire</div>'
+  },
+  spire: {
+    price: 20,
+    height: 6,
+    tippet: '<div class="coin small">50: Build a monolith</div>'
+  },
+  monolith: {
+    price: 50,
+    height: 8,
+    tippet: '<div class="coin small">250: Build a megalith</div>'
+  },
+  megalith: {
+    price: 250,
+    height: 10,
+    tippet: 'This structure is complete'
+  }
+};
 
 var upgrade = new Pizazz({
   size: 30,
@@ -75,7 +102,7 @@ var $coins = document.getElementById('coin_count');
 var $coinModal = document.getElementById('coin_modal');
 
 var renderGrid = function(grid, id) {
-  var texture = id === 'scene_grid' ? sceneUnits : groundUnits;
+  var texture = states;
   var frag = '';
   for (var i = 0; i < grid.length; i++) {
     var tile;
@@ -93,25 +120,27 @@ var renderGrid = function(grid, id) {
 var enableTippets = function() {
   var squares = [...$scene.querySelectorAll('div')];
   for(var i = 0; i < sceneGrid.length; i++) {
-    squares[i].setAttribute('data-tippet', tippets[sceneGrid[i]]);
+    let state = states[sceneGrid[i]];
+    squares[i].setAttribute('data-tippet', units[state].tippet);
   }
   tippet.update();
 };
 
 var upgradeSquare = function(){
-  var el = event.target;
-  var currentState = states.indexOf(el.classList.value);
-  var cost = currentState <= 1 ? 1 : currentState;
+  const el = event.target;
+  let currentState = states.indexOf(el.classList.value);
+  let nextState = states[currentState + 1];
+  var cost = units[nextState].price;
   if(coins >= cost) {
     var index = [].indexOf.call($scene.childNodes, el);
     if(currentState < states.length - 1) {
       currentState = currentState < states.length - 1 ? currentState : -1;
-      el.classList = states[currentState + 1];
-      var height = unitHeights[states[currentState + 1]];
+      el.classList = nextState;
+      var height = units[nextState].height;
       el.setAttribute('style',`transform: translate3d(0,0,${height}em) rotateZ(${-45 * (sceneRotation / 45) + 225}deg)`);
       sceneGrid[index] = currentState + 1;
       upgrade.play(el);
-      tippet.inject(tippets[currentState+1]);
+      tippet.inject(units[nextState].tippet);
       playSound('build.wav');
       playSound('spend.wav');
       updateCoins(-cost);
@@ -291,8 +320,8 @@ var tick = function() {
     showCoinModal(totalElapsed.days, {
       title: 'A new day begins'
     });
-    lastLogin = now;
     localforage.setItem('last_login', now);
+    lastLogin = now;
   }
   if(localElapsed.minutes > 0) {
     renderClock(getTimeDifference(firstLogin, now));
