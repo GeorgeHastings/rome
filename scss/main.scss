@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Space+Mono');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 
 $windergreen: #0047FF;
@@ -26,6 +25,7 @@ $forestsky: linear-gradient(90deg, darken(#78B194, 20%), #DDE0AB);
 $forestsky2: linear-gradient(to right, lighten(#3D7D82, 2%) 0%, #3D7D82 50%);
 $interior1: rgb(55, 49, 74);
 
+$grass: #4ee88e;
 $sand: #EEE27E;
 $dirt: #B2AC7C;
 $wood: darken($dirt, 15%);
@@ -278,7 +278,7 @@ body {
     height: 100%;
     background: url('../assets/images/textures/dust3.png') repeat;
     background-size: 150px;
-    // animation: scrollX 20s linear infinite;
+    animation: scrollX 20s linear infinite;
 
     @keyframes scrollX {
       from {
@@ -427,6 +427,13 @@ body {
   bottom: 50px;
   left: 75px;
   z-index: 9999;
+}
+
+.reset {
+  position: absolute;
+  top: 50px;
+  right: 75px;
+  font-size: 0.8em;
 }
 
 .coin-counter {

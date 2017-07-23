@@ -1,28 +1,5 @@
 'use strict';
 
-var sceneUnits = {
-  0: 'empty',
-  1: 'foundation',
-  2: 'hut',
-  3: 'tower',
-  4: 'spire',
-  5: 'monolith',
-  6: 'megalith',
-};
-
-var groundUnits = {
-  0: 'ground',
-};
-
-var unitHeights = {
-  'ground': 1,
-  'hut': 2,
-  'tower': 4,
-  'spire': 6,
-  'monolith': 8,
-  'megalith': 10,
-};
-
 var states = ['empty', 'foundation', 'hut', 'tower', 'spire', 'monolith', 'megalith'];
 
 const units = {
@@ -141,8 +118,10 @@ var upgradeSquare = function(){
       sceneGrid[index] = currentState + 1;
       upgrade.play(el);
       tippet.inject(units[nextState].tippet);
+      el.setAttribute('data-tippet', units[nextState].tippet);
       playSound('build.wav');
       playSound('spend.wav');
+      console.log('bing')
       updateCoins(-cost);
       localforage.setItem('scene', sceneGrid);
     }
@@ -177,7 +156,7 @@ var rotateScene = function(direction) {
   $scene.setAttribute('style', `transform: rotateX(55deg) rotateZ(${sceneRotation}deg) translate3d(0,0,0em)`);
   var elements = [...$scene.querySelectorAll('div:not(.empty)')];
   for(var element of elements) {
-    var height = unitHeights[element.classList[0]];
+    var height = units[element.classList[0]].height;
     element.setAttribute('style',`transform: translate3d(0,0,${height}em) rotateZ(${-45 * (sceneRotation / 45) + 225}deg)`);
   }
 };
@@ -251,6 +230,17 @@ function getTimeDifference(a, b) {
     };
 }
 
+var reset = function() {
+  if (confirm('This will reset everything. Are you sure?')) {
+    localforage.removeItem('first_login');
+    localforage.removeItem('last_login');
+    localforage.removeItem('scene');
+    localforage.removeItem('coins');
+    window.location.replace('index.html');
+  } else {
+  }
+};
+
 var initScene = function() {
   var now = new Date();
   var sessionElapsed;
@@ -262,13 +252,13 @@ var initScene = function() {
     else {
       firstLogin = new Date();
       localforage.setItem('first_login', firstLogin);
-      showCoinModal(2, {
+      showCoinModal(5, {
         title: 'Welcome',
-        message: `You've begun! Here are two coins to start you off. Use them to build on the map. You'll earn more with each day you stick to it.`,
+        message: `You've begun! Here are some coins to start you off. Use them to build a city. Everyday you'll earn a coin for each day you stick to it.`,
         button: `Let's do this`,
         link: ' ',
       });
-      coins = 2;
+      coins = 5;
     }
     localforage.getItem('last_login').then(function(ll) {
       if(ll) {
