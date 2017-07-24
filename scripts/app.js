@@ -29,12 +29,12 @@ const units = {
     tippet: '<div class="coin small">50: Build a monolith</div>'
   },
   monolith: {
-    price: 50,
+    price: 80,
     height: 8,
     tippet: '<div class="coin small">250: Build a megalith</div>'
   },
   megalith: {
-    price: 250,
+    price: 240,
     height: 10,
     tippet: 'This structure is complete'
   }
