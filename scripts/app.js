@@ -278,7 +278,6 @@ var initScene = function() {
       if(ll) {
         var localElapsed = getTimeDifference(ll, now);
         var totalElapsed = getTimeDifference(fl, now);
-        lastLogin = ll;
         if(localElapsed.days > 0) {
           showCoinModal(totalElapsed.days+1, {
             title: 'A new day begins'
@@ -287,6 +286,7 @@ var initScene = function() {
         else {
           updateCoins();
         }
+        lastLogin = ll;
       }
       else {
         lastLogin = now;
@@ -321,7 +321,7 @@ var tick = function() {
   var localElapsed = getTimeDifference(lastLogin, now);
   var totalElapsed = getTimeDifference(firstLogin, now);
   if(localElapsed.days > 0) {
-    showCoinModal(totalElapsed.days, {
+    showCoinModal(totalElapsed.days+1, {
       title: 'A new day begins'
     });
     localforage.setItem('last_login', now);

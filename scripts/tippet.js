@@ -47,7 +47,6 @@ var getBaseStyle = function(theme) {
 const tippet = {
   element: function() {
     if(document.getElementById('Tippet')) {
-      // document.getElementById('Tippet').innerHTML = contents;
       return document.getElementById('Tippet');
     }
     else {
