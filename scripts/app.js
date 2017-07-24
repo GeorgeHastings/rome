@@ -72,6 +72,7 @@ var genBlankGrid = function() {
   return _.fill(Array(100), 0);
 };
 
+var $stage = document.getElementById('scene');
 var $ground = document.getElementById('ground_grid');
 var $scene = document.getElementById('scene_grid');
 var $counter = document.getElementById('days_since');
@@ -195,6 +196,18 @@ var closeCoinModal = function() {
   $coinModal.classList.remove("coin-modal-show");
 };
 
+var setTimeOfDay = function() {
+  var now = new Date();
+  var hour = now.getHours();
+  if(hour >= 7 && hour < 19 ) {
+    $stage.classList.add('dawn');
+  }
+  else {
+    $stage.classList.add('dusk');
+    document.body.setAttribute('style', 'color: white;');
+  }
+};
+
 //KEY EVENTS
 
 document.body.onkeydown = function(e) {
@@ -245,6 +258,7 @@ var initScene = function() {
   var now = new Date();
   var sessionElapsed;
   localforage.config();
+  setTimeOfDay();
   localforage.getItem('first_login').then(function(fl) {
     if(fl) {
       firstLogin = fl;

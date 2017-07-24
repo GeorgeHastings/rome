@@ -110,6 +110,15 @@ body {
 .scene {
   height: inherit;
   width: inherit;
+
+  &.dusk {
+    background: linear-gradient(-27deg, rgb(255, 187, 179), rgb(122, 52, 240));
+    color: white;
+  }
+
+  &.dawn {
+    background: linear-gradient(170deg, rgb(242, 239, 210), rgb(36, 220, 161));
+  }
 }
 
 .ui-wrapper {
@@ -278,7 +287,7 @@ body {
     height: 100%;
     background: url('../assets/images/textures/dust3.png') repeat;
     background-size: 150px;
-    animation: scrollX 20s linear infinite;
+    // animation: scrollX 20s linear infinite;
 
     @keyframes scrollX {
       from {
@@ -292,7 +301,7 @@ body {
 
   & + .day-counter,
   & ~ .bottom-left{
-    color: #333;
+    color: inherit;
   }
 }
 
@@ -354,7 +363,7 @@ body {
   & ~ .bottom-left,
   & ~ .bottom-left .link,
   & ~ .day-counter {
-    color: #fff;
+    color: inherit;
   }
 }
 
@@ -530,7 +539,7 @@ body {
   display: inline-block;
   font-size: 0.8em;
   padding: 10px 15px;
-  color: map-get($grayscale, 7);
+  color: inherit;
   cursor: pointer;
 
   &:hover {

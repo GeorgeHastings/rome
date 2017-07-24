@@ -20,6 +20,11 @@ body {
 .scene {
   height: inherit;
   width: inherit; }
+  .scene.dusk {
+    background: linear-gradient(-27deg, #ffbbb3, #7a34f0);
+    color: white; }
+  .scene.dawn {
+    background: linear-gradient(170deg, #f2efd2, #24dca1); }
 
 .ui-wrapper {
   position: absolute;
@@ -344,8 +349,7 @@ body {
     width: 200%;
     height: 100%;
     background: url("../assets/images/textures/dust3.png") repeat;
-    background-size: 150px;
-    animation: scrollX 20s linear infinite; }
+    background-size: 150px; }
 
 @keyframes scrollX {
   from {
@@ -354,7 +358,7 @@ body {
     transform: translate3d(-50%, 0, 0); } }
   .desert + .day-counter,
   .desert ~ .bottom-left {
-    color: #333; }
+    color: inherit; }
 
 .forest {
   background: linear-gradient(to top, #135359, #03d7c7); }
@@ -605,7 +609,7 @@ body {
   .forest ~ .bottom-left,
   .forest ~ .bottom-left .link,
   .forest ~ .day-counter {
-    color: #fff; }
+    color: inherit; }
 
 .interior {
   background: #37314a; }
@@ -949,7 +953,7 @@ body {
   display: inline-block;
   font-size: 0.8em;
   padding: 10px 15px;
-  color: #252B37;
+  color: inherit;
   cursor: pointer; }
   .link:hover {
     text-decoration: underline; }
