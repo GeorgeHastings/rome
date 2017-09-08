@@ -919,6 +919,11 @@ body {
   .coin-modal .link {
     color: #7B8AA7; }
 
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
 .coin {
   position: relative;
   margin-left: 25px; }
