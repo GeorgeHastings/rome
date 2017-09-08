@@ -26,7 +26,7 @@ const units = {
   spire: {
     price: 20,
     height: 6,
-    tippet: '<div class="coin small">50: Build a monolith</div>'
+    tippet: '<div class="coin small">80: Build a monolith</div>'
   },
   monolith: {
     price: 80,
