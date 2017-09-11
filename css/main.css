@@ -23,7 +23,7 @@ body {
   .scene.dusk {
     background: linear-gradient(-27deg, #ffbbb3, #7a34f0);
     color: white; }
-    .scene.dusk .coin-modal {
+    .scene.dusk ~ .coin-modal {
       color: black; }
   .scene.dawn {
     background: linear-gradient(170deg, #f2efd2, #24dca1); }
